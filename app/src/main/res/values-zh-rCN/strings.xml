@@ -440,7 +440,6 @@
     <string name="privacy_set">隐私设置</string>
     <string name="security_set">安全设置</string>
     <string name="page_source">查看页面源代码</string>
-    <string name="pagespeed_error">此网站使用 PageSpeed。源编辑可能不会如预期那样工作。</string>
     <string name="app_lock">设置应用密码</string>
     <string name="show_ssl">显示 SSL 警告对话框</string>
     <string name="warn">只有当你知道自己在做什么时才改变这个！</string>

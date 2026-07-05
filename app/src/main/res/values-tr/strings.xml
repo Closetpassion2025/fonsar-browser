@@ -444,7 +444,6 @@
     <string name="privacy_set">Gizlilik ayarları</string>
     <string name="security_set">Güvenlik ayarları</string>
     <string name="page_source">Sayfa kaynağını göster</string>
-    <string name="pagespeed_error">Bu web sitesi PageSpeed kullanıyor. Kaynak düzenleme beklendiği gibi çalışmayabilir.</string>
     <string name="app_lock">Uygulama parolası ayarla</string>
     <string name="show_ssl">SSL uyarı iletişim kutularını göster</string>
     <string name="warn">Bunu yalnızca ne yaptığınızı biliyorsanız değiştirin!</string>

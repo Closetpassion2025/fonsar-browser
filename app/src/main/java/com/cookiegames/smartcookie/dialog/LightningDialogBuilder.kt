@@ -37,6 +37,8 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.Reusable
 import io.reactivex.Scheduler
 import io.reactivex.rxkotlin.subscribeBy
+import java.util.Locale
+import java.util.Locale.getDefault
 import javax.inject.Inject
 
 
@@ -323,7 +325,11 @@ class LightningDialogBuilder @Inject constructor(
             clipboardManager.copyToClipboard(url)
         },
         DialogItem(title = R.string.dialog_download_image) {
-            val mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(MimeTypeMap.getFileExtensionFromUrl(imageUrl).toLowerCase())
+            val mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(
+                MimeTypeMap.getFileExtensionFromUrl(
+                    imageUrl
+                ).lowercase(getDefault())
+            )
 
             if(mimeType != null){
                 downloadHandler.onDownloadStart(activity, userPreferences, imageUrl, userAgent, "attachment", mimeType, "")

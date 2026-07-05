@@ -430,7 +430,6 @@
     <string name="privacy_set">Ρυθμίσεις απορρήτου</string>
     <string name="security_set">Ρυθμίσεις ασφαλείας</string>
     <string name="page_source">Προβολή κώδικα σελίδας</string>
-    <string name="pagespeed_error">Αυτός ο ιστότοπος χρησιμοποιεί PageSpeed. Η επεξεργασία κώδικα ενδέχεται να μην λειτουργεί όπως αναμενόταν.</string>
     <string name="app_lock">Ορισμός κωδικού εφαρμογής</string>
     <string name="show_ssl">Εμφάνιση διαλόγων προειδοποίησης SSL</string>
     <string name="warn">Αλλάξτε αυτό μόνο εάν γνωρίζετε τι κάνετε!</string>

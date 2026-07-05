@@ -443,7 +443,6 @@
     <string name="privacy_set">Настройка конфиденциальности</string>
     <string name="security_set">Настройки безопасности</string>
     <string name="page_source">Исходный код страницы</string>
-    <string name="pagespeed_error">Этот сайт использует PageSpeed. Редактирование исходного кода может не работать.</string>
     <string name="app_lock">Установить пароль</string>
     <string name="show_ssl">Показывать предупреждения SSL</string>
     <string name="warn">Изменяйте это только если вы знаете, что делаете!</string>

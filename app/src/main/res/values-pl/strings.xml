@@ -441,7 +441,6 @@
     <string name="privacy_set">Ustawienia prywatności</string>
     <string name="security_set">Ustawienia zabezpieczeń</string>
     <string name="page_source">Pokaż źródło strony</string>
-    <string name="pagespeed_error">Ta strona używa strony PageSpeed. Edycja źródła może nie działać zgodnie z oczekiwaniami.</string>
     <string name="app_lock">Ustaw hasło</string>
     <string name="show_ssl">Pokaż dialogi ostrzegawcze SSL</string>
     <string name="warn">Zmień to tylko, jeśli wiesz co robisz!</string>

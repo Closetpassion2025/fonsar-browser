@@ -133,8 +133,8 @@ internal object ContentDispositionFileNameParser {
                 index++
             } else if (b == '%'.code.toByte() && index < value.size - 2) {
                 val array = charArrayOf(
-                    value[index + 1].toChar(),
-                    value[index + 2].toChar()
+                    value[index + 1].toInt().toChar(),
+                    value[index + 2].toInt().toChar()
                 )
                 try {
                     byteArrayOutputStream.write(String(array).toInt(16))

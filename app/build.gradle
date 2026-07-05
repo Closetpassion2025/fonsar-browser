@@ -1,13 +1,13 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
-apply plugin: 'jacoco'
+plugins {
+    id 'com.google.devtools.ksp'
+    id 'com.android.application'
+    id 'jacoco'
+    id 'org.jetbrains.kotlin.plugin.compose'
+}
 
 android {
     namespace 'com.cookiegames.smartcookie'
-    compileSdk 35
+    compileSdk 37
 
     lintOptions {
         checkReleaseBuilds false
@@ -85,16 +85,14 @@ android {
         exclude '.readme'
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = '17'
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
     buildFeatures {
         viewBinding = true
         compose = true
         buildConfig = true
+        resValues = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.14"
@@ -107,7 +105,7 @@ jacoco {
 
 dependencies {
     testImplementation 'junit:junit:4.13.2'
-    testImplementation 'org.mockito:mockito-core:2.18.3'
+    testImplementation 'org.mockito:mockito-core:5.23.0'
     testImplementation 'com.nhaarman:mockito-kotlin:1.6.0', {
         exclude group: 'org.jetbrains.kotlin'
     }
@@ -124,13 +122,13 @@ dependencies {
     implementation "androidx.preference:preference-ktx:1.2.1"
 
     // html parsing for reading mode
-    implementation 'org.jsoup:jsoup:1.15.3'
+    implementation 'org.jsoup:jsoup:1.22.2'
 
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.7.0'
     androidTestImplementation 'androidx.test:rules:1.6.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.6.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.7.0'
 
     // downloads
     implementation "org.mozilla.components:concept-fetch:131.0.3"
@@ -140,17 +138,17 @@ dependencies {
     implementation "info.guardianproject.netcipher:netcipher-webkit:2.1.0"
 
     // dependency injection
-    final def daggerVersion = '2.48.1'
+    final def daggerVersion = '2.60'
     implementation "com.google.dagger:dagger:$daggerVersion"
-    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+    ksp "com.google.dagger:dagger-compiler:$daggerVersion"
     compileOnly 'javax.annotation:jsr250-api:1.0'
 
-    final def butterKnifeVersion = '10.2.1'
+    final def butterKnifeVersion = '10.2.3'
     implementation "com.jakewharton:butterknife:$butterKnifeVersion"
-    kapt "com.jakewharton:butterknife-compiler:$butterKnifeVersion"
+    ksp "com.jakewharton:butterknife-compiler:$butterKnifeVersion"
 
     // permissions
-    implementation 'com.guolindev.permissionx:permissionx:1.7.1'
+    implementation 'com.guolindev.permissionx:permissionx:1.8.1'
 
     // proxy support
     implementation 'net.i2p.android:helper:0.9.5'
@@ -161,11 +159,11 @@ dependencies {
             strictly "3.12.12"
         }
     }
-    implementation 'com.squareup.okio:okio:2.10.0'
+    implementation 'com.squareup.okio:okio:3.17.0'
 
     // rx
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.17'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.21'
     implementation 'io.reactivex.rxjava2:rxkotlin:2.4.0'
 
     implementation 'org.apache.httpcomponents:httpcore:4.4.16'
@@ -177,7 +175,7 @@ dependencies {
     implementation 'com.github.QuadFlask:colorpicker:0.0.15'
 
     // reading mode
-    implementation 'net.dankito.readability4j:readability4j:1.0.3'
+    implementation 'net.dankito.readability4j:readability4j:1.0.8'
 
     // webview tools
     implementation 'androidx.webkit:webkit:1.12.1'
@@ -186,7 +184,7 @@ dependencies {
     implementation 'com.github.AppIntro:AppIntro:6.2.0'
 
     // memory leak analysis
-    final def leakCanaryVersion = '2.10'
+    final def leakCanaryVersion = '2.13'
     debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"
 
     // code editor
@@ -200,15 +198,8 @@ dependencies {
     implementation 'androidx.compose.foundation:foundation:1.7.5'
 }
 
-tasks.withType(KotlinCompile).configureEach {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
-
-    kotlinOptions {
-        jvmTarget = '1.8'
-        kotlinOptions {
-            freeCompilerArgs += ['-XXLanguage:+InlineClasses']
-            freeCompilerArgs += ['-progressive']
-        }
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+    compilerOptions {
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11)
     }
 }

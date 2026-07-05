@@ -161,7 +161,7 @@ class ReadingActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         override fun onPostExecute(aVoid: Void?) {
             val html: String? = extractedContentHtmlWithUtf8Encoding?.replace("image copyright".toRegex(), resources.getString(R.string.reading_mode_image_copyright) + " ")?.replace("image caption".toRegex(), resources.getString(R.string.reading_mode_image_caption) + " ")?.replace("￼".toRegex(), "")
             try {
-                val doc = Jsoup.parse(html)
+                val doc = Jsoup.parse(html ?: "")
                 for (element in doc.select("img")) {
                     element.remove()
                 }

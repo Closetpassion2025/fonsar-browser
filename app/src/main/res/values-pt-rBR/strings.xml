@@ -441,7 +441,6 @@
     <string name="privacy_set">Configurações de privacidade</string>
     <string name="security_set">Configurações de segurança</string>
     <string name="page_source">Ver código-fonte da página</string>
-    <string name="pagespeed_error">Este site usa PageSpeed. A edição de código-fonte pode não funcionar como esperado.</string>
     <string name="app_lock">Definir senha do aplicativo</string>
     <string name="show_ssl">Mostrar diálogos de alerta de SSL</string>
     <string name="warn">Só mude isso se souber o que está fazendo!</string>

@@ -441,7 +441,6 @@
     <string name="privacy_set">Paramètres de confidentialité</string>
     <string name="security_set">Paramètres de sécurité</string>
     <string name="page_source">Code source de la page</string>
-    <string name="pagespeed_error">Ce site utilise la technologie PageSpeed, ce qui peut causer des erreurs si vous modifiez le code source.</string>
     <string name="app_lock">Définir le mot de passe de l’application</string>
     <string name="show_ssl">Afficher les alertes SSL</string>
     <string name="warn">Ne modifiez ce paramètre que si vous savez ce que vous faites !</string>

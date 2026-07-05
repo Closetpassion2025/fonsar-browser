@@ -439,7 +439,6 @@
     <string name="privacy_set">Privatsphäre Einstellungen</string>
     <string name="security_set">Sicherheit Einstellung</string>
     <string name="page_source">Seitenquelltext anzeigen</string>
-    <string name="pagespeed_error">Diese Website verwendet PageSpeed. Die Bearbeitung des Quelltextes funktioniert möglicherweise nicht wie erwartet.</string>
     <string name="app_lock">Passwort festlegen</string>
     <string name="show_ssl">Zeigen SSL Warndialog</string>
     <string name="warn">Ändern Sie dies nur, wenn Sie wissen, was Sie tun!</string>

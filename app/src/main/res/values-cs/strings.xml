@@ -443,7 +443,6 @@
     <string name="privacy_set">Nastavení soukromí</string>
     <string name="security_set">Nastavení zabezpečení</string>
     <string name="page_source">Zobrazit zdrojový kód stránky</string>
-    <string name="pagespeed_error">This website uses PageSpeed. Source editing may not work as expected.</string>
     <string name="app_lock">Set app password</string>
     <string name="show_ssl">Show SSL warning dialogs</string>
     <string name="warn">Only change this if you know what you\'re doing!</string>

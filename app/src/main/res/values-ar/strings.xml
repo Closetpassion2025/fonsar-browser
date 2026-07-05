@@ -445,7 +445,6 @@
     <string name="privacy_set">إعدادات الخصوصيّة</string>
     <string name="security_set">إعدادات الحماية</string>
     <string name="page_source">عرض مصدر الصفحة</string>
-    <string name="pagespeed_error">يستخدم هذا الموقع \"PageSped\". قد لا يعمل تعديل المصدر كما هو متوقع.</string>
     <string name="app_lock">تعيين كلمة مرور التطبيق</string>
     <string name="show_ssl">إظهار مربعات حوار تحذير SSL</string>
     <string name="warn">قم بتغيير هذا فقط إذا كنت تعرف ماذا تفعل!</string>

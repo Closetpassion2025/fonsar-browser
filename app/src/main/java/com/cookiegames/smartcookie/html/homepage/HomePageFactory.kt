@@ -101,7 +101,7 @@ class HomePageFactory @Inject constructor(
                             }
 
                             val url = URI(element.replaceFirst("www.", ""))
-                            val icon = createIconByName(url.host.first().toUpperCase())
+                            val icon = createIconByName(url.host.first().uppercaseChar())
                             val encoded = bitmapToBase64(icon)
                             id("link" + (index + 1)){ attr("src", "https://${URI(element).host}/favicon.ico")}
                             id("link" + (index + 1)){ attr("onerror", "this.src = 'data:image/png;base64,$encoded';")}
