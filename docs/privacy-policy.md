@@ -45,7 +45,6 @@ When you use the browser, network requests may be sent to **third parties** you 
 2. **Search engines** — Queries are sent to the search engine you select in Settings (e.g. Google, DuckDuckGo, Bing, Yahoo, Baidu, Naver, Startpage, Ecosia, Yandex, Ask, Ekoru, Searx, or a custom URL).
 3. **Search suggestions** — If enabled, partial queries may be sent to Google, DuckDuckGo, Baidu, or Naver (configurable; can be disabled).
 4. **Ad-block / hosts lists** — By default, blocking rules are loaded from bundled assets. You may optionally configure a remote hosts file URL; downloading that list contacts the server you specify.
-5. **Page translation (optional)** — If you enable the translate extension in Settings, the current page URL is sent to Microsoft’s `translatetheweb.com` service to render a translated page in the WebView. This feature is off by default.
 
 Malware blocking uses a bundled local list (`malware.txt`); it does not phone home to Fonsar.
 
@@ -132,7 +131,6 @@ Ao usar o browser, podem ser enviados pedidos a **terceiros** com quem interage:
 2. **Motores de pesquisa** — As consultas são enviadas ao motor seleccionado nas Definições (ex.: Google, DuckDuckGo, Bing, Yahoo, Baidu, Naver, Startpage, Ecosia, Yandex, Ask, Ekoru, Searx ou URL personalizado).
 3. **Sugestões de pesquisa** — Se activadas, consultas parciais podem ser enviadas ao Google, DuckDuckGo, Baidu ou Naver (configurável; pode ser desactivado).
 4. **Listas de bloqueio / hosts** — Por defeito, as regras vêm de ficheiros incluídos na app. Opcionalmente pode configurar um URL remoto; o download contacta o servidor que indicar.
-5. **Tradução de páginas (opcional)** — Se activar a extensão de tradução nas Definições, o URL da página actual é enviado ao serviço `translatetheweb.com` da Microsoft para mostrar a tradução na WebView. Esta funcionalidade vem desactivada por defeito.
 
 O bloqueio de malware usa uma lista local incluída (`malware.txt`); não comunica com servidores Fonsar.
 

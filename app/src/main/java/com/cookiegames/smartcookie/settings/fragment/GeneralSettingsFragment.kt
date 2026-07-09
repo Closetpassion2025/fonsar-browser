@@ -119,12 +119,6 @@ class GeneralSettingsFragment : AbstractSettingsFragment() {
         )
 
         switchPreference(
-                preference = SETTINGS_TRANSLATE,
-                isChecked = userPreferences.translateExtension,
-                onCheckChange = { userPreferences.translateExtension = it }
-        )
-
-        switchPreference(
                 preference = SETTINGS_AMP,
                 isChecked = userPreferences.noAmp,
                 onCheckChange = { userPreferences.noAmp = it }
@@ -531,7 +525,6 @@ class GeneralSettingsFragment : AbstractSettingsFragment() {
         private const val SETTINGS_SUGGESTIONS_NUM = "suggestions_number"
         private const val SETTINGS_LAST_TAB = "last_tab"
         private const val SETTINGS_ALL_TABS = "load_tabs"
-        private const val SETTINGS_TRANSLATE = "translate"
         private const val SETTINGS_AMP = "amp"
     }
 }

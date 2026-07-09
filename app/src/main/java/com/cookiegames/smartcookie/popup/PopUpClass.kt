@@ -161,7 +161,6 @@ class PopUpClass {
                 MenuDividerClass(),
                 MenuItemClass("share", R.string.action_share, R.drawable.ic_share_black, true),
                 MenuItemClass("open_in_app", R.string.open_in_app, R.drawable.ic_round_open_in_new, userPreferences.navbar && !activity.isIncognito() && intent.resolveActivity(packageManager) != null && intent.resolveActivity(packageManager).packageName != activity.applicationContext.packageName && !currentUrl.isSpecialUrl()),
-                MenuItemClass("translate", R.string.translator, R.drawable.translate, userPreferences.translateExtension),
                 MenuItemClass("print", R.string.action_print, R.drawable.ic_round_print, true),
                 MenuDividerClass(),
                 MenuItemClass("history", R.string.action_history, R.drawable.ic_history, true),
@@ -395,10 +394,6 @@ class PopUpClass {
                 "exit_private" -> {
                     view.context.startActivity(Intent(view.context, BrowserActivity::class.java))
                     activity.finish()
-                }
-                "translate" -> {
-                    val locale = Resources.getSystem().configuration.locale
-                    currentView?.loadUrl("https://www.translatetheweb.com/?from=&to=$locale&dl=$locale&a=$currentUrl")
                 }
                 "open_in_app" -> {
                     val components = arrayOf(ComponentName(activity, BrowserActivity::class.java))

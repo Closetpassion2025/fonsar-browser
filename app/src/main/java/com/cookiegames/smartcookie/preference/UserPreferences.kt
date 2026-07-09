@@ -330,7 +330,6 @@ class UserPreferences @Inject constructor(
     var hostsRemoteFile by preferences.nullableStringPreference(HOSTS_REMOTE_FILE)
 
     var darkModeExtension by preferences.booleanPreference(DARK_MODE, false)
-    var translateExtension by preferences.booleanPreference(TRANSLATE, false)
 
     // The color of the main navbar
     var colorNavbar by preferences.intPreference(NAVBAR_COLOR, 0)
@@ -459,7 +458,6 @@ private const val ALWAYS_INCOGNITO = "alwaysincognito"
 private const val FORCE_ZOOM = "forcezoom"
 private const val NAVBAR_COL = "navbarcol"
 private const val DARK_MODE = "darkmode"
-private const val TRANSLATE = "translate"
 private const val INTENT = "stopIntent"
 private const val DRAWER_LINES = "lines"
 private const val DRAWER_SIZE = "dize"

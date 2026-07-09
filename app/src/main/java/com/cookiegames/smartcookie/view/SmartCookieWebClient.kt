@@ -95,7 +95,6 @@ class SmartCookieWebClient(
     @Inject internal lateinit var textReflowJs: TextReflow
     @Inject internal lateinit var invertPageJs: InvertPage
     @Inject internal lateinit var darkMode: DarkMode
-    @Inject internal lateinit var translate: Translate
     @Inject internal lateinit var noAMP: BlockAMP
     @Inject internal lateinit var cookieBlock: CookieBlock
     @Inject internal lateinit var setWidenView: SetWidenViewport
@@ -371,21 +370,6 @@ class SmartCookieWebClient(
             view.loadUrl(
                     "javascript:(function() { document.querySelector('meta[name=\"viewport\"]').setAttribute(\"content\",\"width=device-width\"); })();"
             )
-        }
-
-        if(userPreferences.translateExtension && url.contains("translatetheweb.com/")){
-            val lang: String
-            if(Build.VERSION.SDK_INT > 20){
-                lang = Locale.getDefault().toLanguageTag()
-            }
-            else{
-                lang = Locale.getDefault().displayLanguage
-            }
-            when(lang){
-                "pt-BR" -> view.evaluateJavascript("lang = 'pt'; " + translate.provideJs(activity), null)
-                "pt", "português" -> view.evaluateJavascript("lang = 'pt-PT'; " + translate.provideJs(activity), null)
-                else -> view.evaluateJavascript("lang = '" + lang + "'; " + translate.provideJs(activity), null)
-            }
         }
 
         if (view.title == null || view.title.isNullOrEmpty()) {
