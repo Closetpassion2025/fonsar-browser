@@ -60,9 +60,13 @@ Contributions are greatly appreciated. Feel free to open an issue or pull reques
 
 ## License
 
-- **[MPL-2.0 license](https://www.mozilla.org/en-US/MPL/2.0/)**
+Fonsar Browser is a derivative work based on [SmartCookieWeb](https://github.com/CookieJarApps/SmartCookieWeb) by CookieJarApps, which is licensed under the **[Mozilla Public License 2.0 (MPL-2.0)](https://www.mozilla.org/en-US/MPL/2.0/)**. SmartCookieWeb is a fork of Lightning Browser (Copyright A.C.R. Development), also under MPL-2.0.
 
-Please read the license before forking.
+Modifications in this fork are licensed under MPL-2.0. Upstream copyright notices in source files are retained as required by the license. See [NOTICE](NOTICE) for attribution details.
+
+Modified source: [TODO: fork repository URL]
+
+Please read the MPL-2.0 before forking or redistributing.
 
 ---
 

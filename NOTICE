@@ -1,0 +1,40 @@
+Fonsar Browser
+Copyright (c) 2026 Fonsar
+
+This product includes software developed by third parties under open-source
+licenses. Fonsar Browser is a derivative work based on SmartCookieWeb.
+
+---------------------------------------------------------------------------
+Upstream project
+---------------------------------------------------------------------------
+
+SmartCookieWeb
+Copyright (c) CookieJarApps
+Licensed under the Mozilla Public License, Version 2.0
+Source: https://github.com/CookieJarApps/SmartCookieWeb
+
+SmartCookieWeb is itself a fork of Lightning Browser.
+
+Lightning Browser
+Copyright (c) A.C.R. Development
+Licensed under the Mozilla Public License, Version 2.0
+
+---------------------------------------------------------------------------
+Fonsar Browser modifications
+---------------------------------------------------------------------------
+
+Fonsar Browser modifies the SmartCookieWeb source code. Modified files in
+this distribution are marked with copyright notices retained from upstream
+where required by the MPL-2.0. New or substantially modified files created
+for Fonsar Browser are licensed under the MPL-2.0 unless otherwise noted.
+
+Modified source (this fork):
+[TODO: fork repository URL]
+
+---------------------------------------------------------------------------
+License
+---------------------------------------------------------------------------
+
+This Source Code Form is subject to the terms of the Mozilla Public License,
+v. 2.0. If a copy of the MPL was not distributed with this file, You can
+obtain one at https://mozilla.org/MPL/2.0/.
