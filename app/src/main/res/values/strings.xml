@@ -514,7 +514,10 @@
 
     <string name="page_source">Edit page source</string>
 
-    <string name="app_lock">Set app password</string>
+    <string name="app_lock">App lock</string>
+    <string name="app_lock_biometric">Biometric or device lock</string>
+    <string name="app_lock_biometric_unavailable">No biometric or screen lock is set up on this device</string>
+    <string name="app_lock_unlock">Unlock</string>
 
     <string name="show_ssl">Show SSL warning dialogs</string>
     <string name="warn">Only change this if you know what you\'re doing!</string>

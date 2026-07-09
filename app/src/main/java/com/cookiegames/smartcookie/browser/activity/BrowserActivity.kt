@@ -41,6 +41,8 @@ import android.widget.TextView.OnEditorActionListener
 import androidx.annotation.ColorInt
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
+import androidx.biometric.BiometricManager
+import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.net.toUri
@@ -547,28 +549,59 @@ abstract class BrowserActivity : ThemableBrowserActivity(), BrowserView, UIContr
 
         }
 
-        if(userPreferences.passwordChoiceLock == PasswordChoice.CUSTOM){
-            val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+        when (userPreferences.passwordChoiceLock) {
+            PasswordChoice.CUSTOM -> showPasswordLock()
+            PasswordChoice.BIOMETRIC -> showBiometricLock()
+            else -> Unit
+        }
+    }
 
-            val customLayoutBinding = DialogAppLockBinding.inflate(layoutInflater)
-            builder.setView(customLayoutBinding.root)
-            builder.setCancelable(false)
+    private fun showPasswordLock() {
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
 
-            builder.setPositiveButton(resources.getString(R.string.action_ok)) { dialog, _ ->
-                if (customLayoutBinding.textFieldText.text.toString() == userPreferences.passwordTextLock) {
-                    dialog.cancel()
-                }
-                else{
-                    this.finishAffinity()
-                }
+        val customLayoutBinding = DialogAppLockBinding.inflate(layoutInflater)
+        builder.setView(customLayoutBinding.root)
+        builder.setCancelable(false)
+
+        builder.setPositiveButton(resources.getString(R.string.action_ok)) { dialog, _ ->
+            if (customLayoutBinding.textFieldText.text.toString() == userPreferences.passwordTextLock) {
+                dialog.cancel()
             }
-            builder.setNegativeButton(resources.getString(R.string.action_cancel)) { _, _ ->
+            else{
                 this.finishAffinity()
             }
-
-            val dialog: AlertDialog = builder.create()
-            dialog.show()
         }
+        builder.setNegativeButton(resources.getString(R.string.action_cancel)) { _, _ ->
+            this.finishAffinity()
+        }
+
+        val dialog: AlertDialog = builder.create()
+        dialog.show()
+    }
+
+    private fun showBiometricLock() {
+        val allowedAuthenticators = BiometricManager.Authenticators.BIOMETRIC_WEAK or
+                BiometricManager.Authenticators.DEVICE_CREDENTIAL
+
+        if (BiometricManager.from(this).canAuthenticate(allowedAuthenticators) !=
+                BiometricManager.BIOMETRIC_SUCCESS) {
+            // Screen lock was removed after enabling the app lock; don't lock the user out
+            return
+        }
+
+        val prompt = BiometricPrompt(this, ContextCompat.getMainExecutor(this),
+                object : BiometricPrompt.AuthenticationCallback() {
+                    override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
+                        finishAffinity()
+                    }
+                })
+
+        val promptInfo = BiometricPrompt.PromptInfo.Builder()
+                .setTitle(resources.getString(R.string.app_lock_unlock))
+                .setAllowedAuthenticators(allowedAuthenticators)
+                .build()
+
+        prompt.authenticate(promptInfo)
     }
 
     private fun getBookmarksContainerId(): Int = if (swapBookmarksAndTabs) {

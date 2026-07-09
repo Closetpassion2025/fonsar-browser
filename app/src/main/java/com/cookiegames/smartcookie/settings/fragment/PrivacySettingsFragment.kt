@@ -10,6 +10,7 @@ import android.webkit.WebView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.biometric.BiometricManager
 import com.cookiegames.smartcookie.DeviceCapabilities
 import com.cookiegames.smartcookie.R
 import com.cookiegames.smartcookie.browser.PasswordChoice
@@ -45,10 +46,9 @@ class PrivacySettingsFragment : AbstractSettingsFragment() {
         super.onCreate(savedInstanceState)
         injector.inject(this)
 
-        val stringArrayPassword = resources.getStringArray(R.array.password_set_array)
         clickableDynamicPreference(
                 preference = SETTINGS_APP_LOCK,
-                summary = stringArrayPassword[userPreferences.passwordChoiceLock.value],
+                summary = userPreferences.passwordChoiceLock.toSummary(),
                 onClick = ::showPasswordPicker
         )
 
@@ -162,17 +162,19 @@ class PrivacySettingsFragment : AbstractSettingsFragment() {
         return when (this) {
             PasswordChoice.NONE -> stringArray[0]
             PasswordChoice.CUSTOM -> stringArray[1]
+            PasswordChoice.BIOMETRIC -> resources.getString(R.string.app_lock_biometric)
         }
     }
 
     private fun showPasswordPicker(summaryUpdater: SummaryUpdater) {
         BrowserDialog.showCustomDialog(activity) {
-            setTitle(R.string.enter_password)
+            setTitle(R.string.app_lock)
             val stringArray = resources.getStringArray(R.array.password_set_array)
             val values = PasswordChoice.values().map {
                 Pair(it, when (it) {
                     PasswordChoice.NONE -> stringArray[0]
                     PasswordChoice.CUSTOM -> resources.getString(R.string.enter_password)
+                    PasswordChoice.BIOMETRIC -> resources.getString(R.string.app_lock_biometric)
                 })
             }
             withSingleChoiceItems(values, userPreferences.passwordChoiceLock) {
@@ -183,27 +185,29 @@ class PrivacySettingsFragment : AbstractSettingsFragment() {
     }
 
     private fun updatePasswordChoice(choice: PasswordChoice, activity: Activity, summaryUpdater: SummaryUpdater) {
+        if (choice == PasswordChoice.BIOMETRIC && !isDeviceSecure(activity)) {
+            toastMessage?.cancel()
+            toastMessage = Toast.makeText(activity, R.string.app_lock_biometric_unavailable, Toast.LENGTH_LONG)
+            toastMessage!!.show()
+            return
+        }
+
+        val prefs: SharedPreferences = activity.getSharedPreferences("com.cookiegames.smartcookie", Context.MODE_PRIVATE)
+        prefs.edit().putBoolean("noPassword", choice != PasswordChoice.CUSTOM).apply()
+
         if (choice == PasswordChoice.CUSTOM) {
             showPasswordTextPicker(activity, summaryUpdater)
-
-            val prefs: SharedPreferences = activity.getSharedPreferences("com.cookiegames.smartcookie", Context.MODE_PRIVATE)
-
-            val editor: SharedPreferences.Editor = prefs.edit()
-            editor.putBoolean("noPassword", false)
-            editor.apply()
-        }
-        else{
-            val prefs: SharedPreferences = activity.getSharedPreferences("com.cookiegames.smartcookie", Context.MODE_PRIVATE)
-
-            val editor: SharedPreferences.Editor = prefs.edit()
-            editor.putBoolean("noPassword", true)
-            editor.apply()
-
-            summaryUpdater.updateSummary(resources.getString(R.string.none))
         }
 
         userPreferences.passwordChoiceLock = choice
         summaryUpdater.updateSummary(choice.toSummary())
+    }
+
+    private fun isDeviceSecure(context: Context): Boolean {
+        val authenticators = BiometricManager.Authenticators.BIOMETRIC_WEAK or
+                BiometricManager.Authenticators.DEVICE_CREDENTIAL
+        return BiometricManager.from(context).canAuthenticate(authenticators) ==
+                BiometricManager.BIOMETRIC_SUCCESS
     }
 
     private fun showPasswordTextPicker(activity: Activity, summaryUpdater: SummaryUpdater) {

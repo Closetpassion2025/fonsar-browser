@@ -167,8 +167,8 @@ class ParentalControlSettingsFragment : AbstractSettingsFragment() {
     private fun PasswordChoice.toSummary(): String {
         val stringArray = resources.getStringArray(R.array.password_set_array)
         return when (this) {
-            PasswordChoice.NONE -> stringArray[0]
             PasswordChoice.CUSTOM -> stringArray[1]
+            else -> stringArray[0]
         }
     }
 
@@ -176,10 +176,11 @@ class ParentalControlSettingsFragment : AbstractSettingsFragment() {
         BrowserDialog.showCustomDialog(activity) {
             setTitle(R.string.enter_password)
             val stringArray = resources.getStringArray(R.array.password_set_array)
-            val values = PasswordChoice.values().map {
+            // Parental controls only support none/custom; biometric is app lock only
+            val values = listOf(PasswordChoice.NONE, PasswordChoice.CUSTOM).map {
                 Pair(it, when (it) {
-                    PasswordChoice.NONE -> stringArray[0]
                     PasswordChoice.CUSTOM -> resources.getString(R.string.enter_password)
+                    else -> stringArray[0]
                 })
             }
             withSingleChoiceItems(values, userPreferences.passwordChoice) {
