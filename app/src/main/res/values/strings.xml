@@ -286,7 +286,7 @@
     <string name="message_open_download_fail">This file doesn\'t exist anymore</string>
     <string name="this_project">This Project</string>
 
-    <string name="scw">SmartCookieWeb Source Code</string>
+    <string name="scw">Fonsar Browser Source Code</string>
     <string name="action_home">Home</string>
     <string name="description">Learn about Fonsar Browser</string>
     <string name="url_contact" translatable="false">www.cookiegames.co.uk/</string>
