@@ -22,7 +22,6 @@
     <string-array name="homepage_type">
         <item>@string/agent_default</item>
         <item>@string/focused</item>
-        <item>@string/informational</item>
     </string-array>
 
     <string-array name="navbar_col">
@@ -66,7 +65,6 @@
         <item>@string/powered_by_duck</item>
         <item>@string/powered_by_baidu</item>
         <item>@string/powered_by_naver</item>
-        <item>@string/app_name</item>
         <item>@string/search_suggestions_off</item>
     </string-array>
 

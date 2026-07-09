@@ -356,10 +356,6 @@ abstract class BrowserActivity : ThemableBrowserActivity(), BrowserView, UIContr
         setSupportActionBar(binding.toolbar)
         val actionBar = requireNotNull(supportActionBar)
 
-        if(userPreferences.translationEndpoint == "https://cookiejarapps.com/translate/"){
-            userPreferences.translationEndpoint = "https://smartcookieweb.com/translate/"
-        }
-
         //TODO make sure dark theme flag gets set correctly
         isDarkTheme = userPreferences.useTheme == AppTheme.DARK || userPreferences.useTheme == AppTheme.BLACK || isIncognito()
         shouldShowTabsInDrawer = userPreferences.showTabsInDrawer

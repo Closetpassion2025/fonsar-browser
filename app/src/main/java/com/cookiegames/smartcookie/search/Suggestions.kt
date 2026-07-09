@@ -5,7 +5,6 @@ enum class Suggestions(val index: Int) {
     DUCK(1),
     BAIDU(2),
     NAVER(3),
-    COOKIE(4),
     NONE(5);
 
     companion object {
@@ -15,7 +14,7 @@ enum class Suggestions(val index: Int) {
                 1 -> DUCK
                 2 -> BAIDU
                 3 -> NAVER
-                4 -> COOKIE
+                4 -> NONE
                 5 -> NONE
                 else -> GOOGLE
             }

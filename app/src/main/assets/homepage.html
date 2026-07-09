@@ -253,8 +253,8 @@ img {
     <div class="outer">
         <div class="middle">
             <div class="inner">
-                <img id="image_url" class="smaller" src="file:///android_asset/smartcookieweb.webp"/>
-                <h2 class="text">SmartCookieWeb</h2>
+                <img id="image_url" class="smaller" src="file:///android_asset/fonsar.png"/>
+                <h2 class="text">Fonsar Browser</h2>
                 <br />
                 <br />
                 <div class="search_bar" id="search_bar" autocomplete="off">
@@ -310,10 +310,6 @@ img {
 
         document.querySelector("#search_submit").addEventListener("click", search);
         document.querySelector("#search_input").addEventListener("keydown", function(key) {enter(key)});
-
-        var endpoint = "${ENDPOINT}";
-		console.log(endpoint);
-		var homepageType = "${HOMEPAGE_TYPE}";
 </script>
 
 <div id="editModal" class="modal">
@@ -328,7 +324,7 @@ img {
       <label for="link3">Link 3:</label><br>
   <input type="url" id="link3inp" name="link3" value="https://youtube.com"><br><br>
       <label for="link4">Link 4:</label><br>
-  <input type="url" id="link4inp" name="link4" value="https://speedtest.cookiejarapps.com"><br><br>
+  <input type="url" id="link4inp" name="link4" value="https://wikipedia.org"><br><br>
 
    <div style="float: right;">
     <button class="close button-material" id="close">Close</button>
@@ -341,10 +337,10 @@ img {
 </div>
 <script>
   // MPL 2.0
-var link1var = "https://cookiejarapps.com";
-var link2var = "https://cookiejarapps.com";
-var link3var = "https://cookiejarapps.com";
-var link4var = "https://cookiejarapps.com";
+var link1var = "https://github.com";
+var link2var = "https://google.com";
+var link3var = "https://youtube.com";
+var link4var = "https://wikipedia.org";
 function getDomain(url){
   var domain = url.replace('http://','').replace('https://','').split(/[/?#]/)[0];
   return domain;
@@ -383,29 +379,6 @@ window.onclick = function(event) {
     modal.style.display = "none";
   }
 } 
-
-var req = new XMLHttpRequest();
-req.overrideMimeType("application/json");
-req.open('GET', endpoint, true);
-req.onload  = function() {
-   var jsonResponse = JSON.parse(req.responseText);
-
-   for(i in jsonResponse["articles"]){
-     console.log(jsonResponse["articles"][i]["url"]);
-      var div = document.createElement('div');
-      div.className = 'card';
-      div.innerHTML = `<div onclick="window.location.href = '` + jsonResponse["articles"][i]["url"] + `';">
-      <img src='` + jsonResponse["articles"][i]["urlToImage"] + `' onerror='this.src = "https://via.placeholder.com/650x350?text=No+image+available"' style='width:95%'/> <div class='card-content'>
-      <h2>` + jsonResponse["articles"][i]["title"].replace(" - " + jsonResponse["articles"][i]["source"]["name"], "") + `</h2>
-      <p>` + jsonResponse["articles"][i]["source"]["name"] + ` | by ` + jsonResponse["articles"][i]["author"] + `</p>
-      </div></div>`;
-      document.getElementsByClassName('column')[0].appendChild(div);
-      
-      var br = document.createElement('br');
-      document.getElementsByClassName('column')[0].appendChild(br);
-   }
-};
-req.send(null);     
 </script>
 
 

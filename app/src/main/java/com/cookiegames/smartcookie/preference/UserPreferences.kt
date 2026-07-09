@@ -365,11 +365,7 @@ class UserPreferences @Inject constructor(
     var link1 by preferences.stringPreference(LINK1, "https://github.com")
     var link2 by preferences.stringPreference(LINK2, "https://google.com")
     var link3 by preferences.stringPreference(LINK3, "https://youtube.com")
-    var link4 by preferences.stringPreference(LINK4, "https://speedtest.cookiejarapps.com")
-
-    // API endpoints
-    var translationEndpoint by preferences.stringPreference(TRANSLATION_ENDPOINT, "https://smartcookieweb.com/translate/")
-    var newsEndpoint by preferences.stringPreference(NEWS_ENDPOINT, "https://news.smartcookieweb.com/api.php")
+    var link4 by preferences.stringPreference(LINK4, "https://wikipedia.org")
 
     var useThirdPartyDownloaderApps by preferences.booleanPreference(USE_THIRD_PARTY_DOWNLOADER_APPS, false)
 
@@ -482,8 +478,6 @@ private const val SHOW_SHORTCUTS = "showShortcuts"
 private const val SECOND_BAR = "secondBar"
 private const val NO_AMP = "noAmp"
 private const val SHOW_DOWNLOAD_CONFIRMATION = "showDownloadConfirmation"
-private const val TRANSLATION_ENDPOINT = "translationEndpoint"
-private const val NEWS_ENDPOINT = "newsEndpoint"
 private const val HOMEPAGE_TYPE = "homepageType"
 private const val STACK_FROM_BOTTOM = "stackFromBottom"
 private const val DRAWER_OFFSET = "drawerOffset"

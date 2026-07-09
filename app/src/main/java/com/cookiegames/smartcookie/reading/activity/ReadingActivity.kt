@@ -300,65 +300,6 @@ class ReadingActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         }
     }
 
-    fun translate(lang: String?) {
-        val client = OkHttpClient()
-
-        val spanned = mBody!!.text as Spanned
-
-        mProgressDialog = ProgressDialog(this@ReadingActivity)
-        mProgressDialog!!.setProgressStyle(ProgressDialog.STYLE_SPINNER)
-        mProgressDialog!!.setCancelable(false)
-        mProgressDialog!!.isIndeterminate = true
-        mProgressDialog!!.setMessage(getString(R.string.loading))
-        mProgressDialog!!.show()
-
-        val formBody: RequestBody = FormBody.Builder()
-            .add("text", Html.toHtml(spanned).replace("\"", "\\\""))
-            .add("lang", lang)
-            .build()
-        val translateUrl = mUserPreferences?.translationEndpoint
-        val request = Request.Builder()
-                .url(translateUrl)
-                .addHeader("Accept", "application/json")
-                .method("POST", formBody)
-                .build()
-        client.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                e.printStackTrace()
-                runOnUiThread {
-                    mProgressDialog!!.hide()
-                    Toast.makeText(this@ReadingActivity, resources.getString(R.string.error), Toast.LENGTH_LONG).show()
-                }
-            }
-
-            @SuppressLint("SetTextI18n")
-            @Throws(IOException::class)
-            override fun onResponse(call: Call, response: Response) {
-                if (!response.isSuccessful) {
-                    runOnUiThread {
-                        mProgressDialog!!.hide()
-                        Toast.makeText(
-                            this@ReadingActivity,
-                            resources.getString(R.string.error),
-                            Toast.LENGTH_LONG
-                        ).show()
-                    }
-                    throw IOException("Unexpected code $response")
-                } else {
-                    val values = response.body()!!.string()
-                    runOnUiThread {
-                        try {
-                            val jsonObject = JSONObject(values)
-                            mBody!!.text = Html.fromHtml(jsonObject.getString("text"))
-                            mProgressDialog!!.hide()
-                        } catch (ignored: JSONException) {
-                        }
-                    }
-                }
-            }
-        })
-    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.invert_item -> {
@@ -367,16 +308,6 @@ class ReadingActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                     launch(this, mUrl!!, file)
                     finish()
                 }
-            }
-            R.id.translate_item -> {
-                val builderSingle = MaterialAlertDialogBuilder(this@ReadingActivity)
-                builderSingle.setTitle(resources.getString(R.string.translate_to))
-                val arrayAdapter = ArrayAdapter<String>(this@ReadingActivity, android.R.layout.select_dialog_singlechoice)
-                arrayAdapter.addAll("English", "Français", "Português", "Português do Brasil", "Italiano")
-                val languages = arrayOf("en", "fr", "pt-pt", "pt-br", "it")
-                builderSingle.setNegativeButton("cancel") { dialog: DialogInterface, which: Int -> dialog.dismiss() }
-                builderSingle.setAdapter(arrayAdapter) { dialog: DialogInterface?, which: Int -> translate(languages[which]) }
-                builderSingle.show()
             }
             R.id.text_size_item -> {
                 val view = LayoutInflater.from(this).inflate(R.layout.dialog_seek_bar, null)

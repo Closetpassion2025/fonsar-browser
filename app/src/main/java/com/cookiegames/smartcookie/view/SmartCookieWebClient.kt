@@ -101,7 +101,6 @@ class SmartCookieWebClient(
     @Inject internal lateinit var translate: Translate
     @Inject internal lateinit var noAMP: BlockAMP
     @Inject internal lateinit var cookieBlock: CookieBlock
-    @Inject internal lateinit var blockAds: BlockAds
     @Inject internal lateinit var setWidenView: SetWidenViewport
     @Inject internal lateinit var javascriptRepository: JavaScriptRepository
     @Inject @field:DatabaseScheduler internal lateinit var databaseScheduler: Scheduler

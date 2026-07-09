@@ -33,7 +33,7 @@ class  SearchEngineProvider @Inject constructor(
             1 -> DuckSuggestionsModel(okHttpClient, requestFactory, application, logger)
             2 -> BaiduSuggestionsModel(okHttpClient, requestFactory, application, logger)
             3 -> NaverSuggestionsModel(okHttpClient, requestFactory, application, logger)
-            4 -> SmartCookieWebSuggestionsModel(okHttpClient, requestFactory, application, logger)
+            4 -> NoOpSuggestionsRepository()
             5 -> NoOpSuggestionsRepository()
             else -> GoogleSuggestionsModel(okHttpClient, requestFactory, application, logger)
         }
@@ -57,7 +57,6 @@ class  SearchEngineProvider @Inject constructor(
             11 -> NaverSearch()
             12 -> EcosiaSearch()
             13 -> EkoruSearch()
-            14 -> CookieJarAppsSearch()
             15 -> SearxSearch()
             else -> GoogleSearch()
         }
@@ -81,7 +80,6 @@ class  SearchEngineProvider @Inject constructor(
             is NaverSearch -> 11
             is EcosiaSearch -> 12
             is EkoruSearch -> 13
-            is CookieJarAppsSearch -> 14
             is SearxSearch -> 15
             else -> throw UnsupportedOperationException("Unknown search engine provided: " + searchEngine.javaClass)
         }
@@ -104,7 +102,6 @@ class  SearchEngineProvider @Inject constructor(
         NaverSearch(),
         EcosiaSearch(),
         EkoruSearch(),
-        CookieJarAppsSearch(),
         SearxSearch()
     )
 
