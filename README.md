@@ -72,7 +72,7 @@ Please read the MPL-2.0 before forking or redistributing.
 
 ## Online services
 
-SmartCookieWeb uses some online services to improve the browser. Information about what is stored is available [here](ONLINE.md). A document outlining how to replace the current services is available [here](https://smartcookieweb.com/docs/smartcookieweb/developer/development/#web-services).
+Fonsar Browser does not operate first-party online services. See [ONLINE.md](ONLINE.md) for details on user-initiated network activity (page loads, search engines, ad-block lists, and optional page translation).
 
 ---
 
