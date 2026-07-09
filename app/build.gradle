@@ -11,16 +11,38 @@ if (localPropertiesFile.exists()) {
     localPropertiesFile.withInputStream { localProperties.load(it) }
 }
 
-// Release signing: set in local.properties (gitignored) or environment variables.
+// Java Properties.load() treats '#' as a comment, truncating passwords that contain it.
+// Read RELEASE_* credentials from the raw line instead (or from environment variables).
+def readSigningProperty = { String name ->
+    def fromEnv = System.getenv(name)
+    if (fromEnv != null && !fromEnv.trim().isEmpty()) {
+        return fromEnv.trim()
+    }
+    if (localPropertiesFile.exists()) {
+        def prefix = name + '='
+        def line = localPropertiesFile.readLines('UTF-8').find { it.startsWith(prefix) }
+        if (line != null) {
+            def value = line.substring(prefix.length()).trim()
+            return value.replace('\\#', '#').replace('\\\\', '\\')
+        }
+    }
+    return localProperties.getProperty(name)?.trim()
+}
+
+// Release signing: local.properties (gitignored) or environment variables.
 // RELEASE_STORE_FILE, RELEASE_STORE_PASSWORD, RELEASE_KEY_ALIAS, RELEASE_KEY_PASSWORD
-def releaseStoreFilePath = System.getenv('RELEASE_STORE_FILE') ?: localProperties.getProperty('RELEASE_STORE_FILE')
-def releaseStorePassword = System.getenv('RELEASE_STORE_PASSWORD') ?: localProperties.getProperty('RELEASE_STORE_PASSWORD')
-def releaseKeyAlias = System.getenv('RELEASE_KEY_ALIAS') ?: localProperties.getProperty('RELEASE_KEY_ALIAS')
-def releaseKeyPassword = System.getenv('RELEASE_KEY_PASSWORD') ?: localProperties.getProperty('RELEASE_KEY_PASSWORD')
+def releaseStoreFilePath = readSigningProperty('RELEASE_STORE_FILE')
+def releaseStorePassword = readSigningProperty('RELEASE_STORE_PASSWORD')
+def releaseKeyAlias = readSigningProperty('RELEASE_KEY_ALIAS')
+def releaseKeyPassword = readSigningProperty('RELEASE_KEY_PASSWORD')
 def hasReleaseSigning = releaseStoreFilePath != null &&
         releaseStorePassword != null &&
         releaseKeyAlias != null &&
-        releaseKeyPassword != null
+        releaseKeyPassword != null &&
+        !releaseStoreFilePath.isEmpty() &&
+        !releaseStorePassword.isEmpty() &&
+        !releaseKeyAlias.isEmpty() &&
+        !releaseKeyPassword.isEmpty()
 
 android {
     namespace 'com.cookiegames.smartcookie'
