@@ -5,6 +5,23 @@ plugins {
     id 'org.jetbrains.kotlin.plugin.compose'
 }
 
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withInputStream { localProperties.load(it) }
+}
+
+// Release signing: set in local.properties (gitignored) or environment variables.
+// RELEASE_STORE_FILE, RELEASE_STORE_PASSWORD, RELEASE_KEY_ALIAS, RELEASE_KEY_PASSWORD
+def releaseStoreFilePath = System.getenv('RELEASE_STORE_FILE') ?: localProperties.getProperty('RELEASE_STORE_FILE')
+def releaseStorePassword = System.getenv('RELEASE_STORE_PASSWORD') ?: localProperties.getProperty('RELEASE_STORE_PASSWORD')
+def releaseKeyAlias = System.getenv('RELEASE_KEY_ALIAS') ?: localProperties.getProperty('RELEASE_KEY_ALIAS')
+def releaseKeyPassword = System.getenv('RELEASE_KEY_PASSWORD') ?: localProperties.getProperty('RELEASE_KEY_PASSWORD')
+def hasReleaseSigning = releaseStoreFilePath != null &&
+        releaseStorePassword != null &&
+        releaseKeyAlias != null &&
+        releaseKeyPassword != null
+
 android {
     namespace 'com.cookiegames.smartcookie'
     compileSdk 37
@@ -23,6 +40,17 @@ android {
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
 
+    signingConfigs {
+        release {
+            if (hasReleaseSigning) {
+                storeFile file(releaseStoreFilePath)
+                storePassword releaseStorePassword
+                keyAlias releaseKeyAlias
+                keyPassword releaseKeyPassword
+            }
+        }
+    }
+
     buildTypes {
         debug {
             multiDexEnabled true
@@ -38,6 +66,9 @@ android {
             shrinkResources false
             proguardFiles 'proguard-project.txt'
             testCoverageEnabled false
+            if (hasReleaseSigning) {
+                signingConfig signingConfigs.release
+            }
 
             ndk {
                 abiFilters "arm64-v8a", "armeabi-v7a", "armeabi", "mips"
@@ -129,6 +160,8 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.7.0'
     androidTestImplementation 'androidx.test:rules:1.6.1'
+    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
+    androidTestImplementation 'androidx.test:runner:1.6.2'
     androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.7.0'
 
     // downloads

@@ -102,3 +102,10 @@
 -dontwarn androidx.window.sidecar.SidecarProvider
 -dontwarn androidx.window.sidecar.SidecarWindowLayoutInfo
 -dontwarn org.slf4j.impl.StaticLoggerBinder
+
+# BiometricPrompt (androidx.biometric) references legacy FingerprintManager API classes
+# that are optional at runtime on API 23+ and absent from the compile classpath on
+# newer SDKs. Safe to suppress — BiometricPrompt falls back to BiometricManager.
+-dontwarn android.hardware.fingerprint.FingerprintManager
+-dontwarn android.hardware.fingerprint.FingerprintManager$AuthenticationCallback
+-dontwarn android.hardware.fingerprint.FingerprintManager$CryptoObject
