@@ -60,18 +60,18 @@ android {
     productFlavors {
         scMain {
             dimension "capabilities"
-            applicationId "com.cookiegames.smartcookie"
-            resValue "string", "app_name", "SmartCookieWeb"
+            applicationId "com.fonsar.browser"
+            resValue "string", "app_name", "Fonsar Browser"
         }
         stable {
             dimension "capabilities"
-            applicationId "com.cookiegames.smartcookie"
-            resValue "string", "app_name", "SmartCookieWeb"
+            applicationId "com.fonsar.browser"
+            resValue "string", "app_name", "Fonsar Browser"
         }
         beta {
             dimension 'capabilities'
-            applicationId 'com.cookiejarapps.smartcookiebeta'
-            resValue "string", "app_name", "SmartCookieWeb beta"
+            applicationId 'com.fonsar.browser.beta'
+            resValue "string", "app_name", "Fonsar Browser Beta"
             versionCode 16
             versionName "17.0-beta4"
         }

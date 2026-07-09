@@ -289,7 +289,7 @@
 
     <string name="scw">SmartCookieWeb Source Code</string>
     <string name="action_home">Home</string>
-    <string name="description">Learn about SmartCookieWeb</string>
+    <string name="description">Learn about Fonsar Browser</string>
     <string name="url_contact" translatable="false">www.cookiegames.co.uk/</string>
 
     <string name="faq">FAQ</string>
@@ -378,7 +378,7 @@
     <string name="search_engine_searx_cookiejarapps">CookieJarApps SearX</string>
 
     <string name="privacy">View Privacy Policy</string>
-    <string name="privacy_info">Read the SmartCookieWeb privacy policy</string>
+    <string name="privacy_info">Read the Fonsar Browser privacy policy</string>
     <string name="url_project" translatable="false">https://github.com/CookieJarApps/SmartCookieWeb</string>
     <string name="block_malware">Block malicious sites</string>
     <string name="block_sites">Custom site block</string>
@@ -486,7 +486,7 @@
 
     <string name="more">More Info</string>
     <string name="no_search_suggestions">No Search Suggestions</string>
-    <string name="search_suggestions_4">Unfortunately, search suggestions in Smart Cookie are no longer available on devices below Android 5.0. Press the button below to find out more.</string>
+    <string name="search_suggestions_4">Unfortunately, search suggestions in Fonsar Browser are no longer available on devices below Android 5.0. Press the button below to find out more.</string>
 
     <string name="block_intent">Handle all clicked links within this browser</string>
     <string name="block_intent_summary">Blocks prompt to open links in external applications</string>
@@ -497,7 +497,7 @@
     <string name="listed_javascript">Only allow JavaScript for listed sites</string>
 
     <string name="confirm">Confirm reset</string>
-    <string name="clear">This will clear all the data stored by SmartCookieWeb on your device</string>
+    <string name="clear">This will clear all the data stored by Fonsar Browser on your device</string>
 
     <string name="only_clear">Only clear on browser session end</string>
     <string name="only_clear_summary">Only clear above options when all browser tabs have been closed, instead of whenever the app is exited</string>
@@ -526,7 +526,7 @@
     <string name="download_to_sd">Download to SD card</string>
 
     <string name="legacy_download_manager">Use integrated download manager</string>
-    <string name="legacy_download_manager_desc">Download files using the SmartCookieWeb download manager, instead of the system one</string>
+    <string name="legacy_download_manager_desc">Download files using the Fonsar Browser download manager, instead of the system one</string>
 
     <string name="onboarding_one">Access settings, bookmarks (or swipe from the right edge) and more in the overflow menu.</string>
     <string name="onboarding_two">Click the tab number or swipe from the left edge to open the tab drawer.</string>

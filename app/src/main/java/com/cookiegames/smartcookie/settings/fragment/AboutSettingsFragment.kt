@@ -40,7 +40,7 @@ class AboutSettingsFragment : AbstractSettingsFragment() {
         val aboutPref: androidx.preference.Preference? = findPreference(SETTINGS_VERSION)
         aboutPref!!.setOnPreferenceClickListener {
             val builder = MaterialAlertDialogBuilder(requireContext())
-            builder.setTitle("SCW v" + BuildConfig.VERSION_NAME)
+            builder.setTitle("Fonsar Browser v" + BuildConfig.VERSION_NAME)
             builder.setMessage("What's new:\n- New settings page")
 
 

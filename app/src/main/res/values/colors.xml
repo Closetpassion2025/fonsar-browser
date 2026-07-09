@@ -10,8 +10,9 @@
 
     <color name="primary_color">#FFFFFF</color>
 
-    <color name="cookie_dark">#8d4e00</color>
-    <color name="cookie_light">#C88C36</color>
+    <!-- Fonsar brand: navy (primary) and green (accent) -->
+    <color name="cookie_dark">#1E3A6E</color>
+    <color name="cookie_light">#21A179</color>
 
     <color name="status_bar">#9C9C9C</color>
 
