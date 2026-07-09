@@ -16,6 +16,7 @@ import com.cookiegames.smartcookie.di.DatabaseScheduler
 import com.cookiegames.smartcookie.di.injector
 import com.cookiegames.smartcookie.log.Logger
 import com.cookiegames.smartcookie.preference.DeveloperPreferences
+import com.cookiegames.smartcookie.security.PinCredentialStore
 import com.cookiegames.smartcookie.utils.FileUtils
 import com.cookiegames.smartcookie.utils.MemoryLeakUtils
 import com.cookiegames.smartcookie.utils.installMultiDex
@@ -34,6 +35,7 @@ class BrowserApp : Application() {
     @Inject @field:DatabaseScheduler internal lateinit var databaseScheduler: Scheduler
     @Inject internal lateinit var logger: Logger
     @Inject internal lateinit var buildInfo: BuildInfo
+    @Inject internal lateinit var pinCredentialStore: PinCredentialStore
 
     lateinit var applicationComponent: AppComponent
 
@@ -89,6 +91,7 @@ class BrowserApp : Application() {
                 .buildInfo(createBuildInfo())
                 .build()
         injector.inject(this)
+        pinCredentialStore.migrateLegacyPinsIfNeeded()
 
         Single.fromCallable(bookmarkModel::count)
                 .filter { it == 0L }

@@ -58,6 +58,7 @@ import com.cookiegames.smartcookie.IncognitoActivity
 import com.cookiegames.smartcookie.R
 import com.cookiegames.smartcookie.browser.*
 import com.cookiegames.smartcookie.browser.bookmarks.BookmarksDrawerView
+import com.cookiegames.smartcookie.security.PinCredentialStore
 import com.cookiegames.smartcookie.browser.tabs.TabsDesktopView
 import com.cookiegames.smartcookie.browser.tabs.TabsDrawerView
 import com.cookiegames.smartcookie.controller.UIController
@@ -563,7 +564,8 @@ abstract class BrowserActivity : ThemableBrowserActivity(), BrowserView, UIContr
         builder.setCancelable(false)
 
         builder.setPositiveButton(resources.getString(R.string.action_ok)) { dialog, _ ->
-            if (customLayoutBinding.textFieldText.text.toString() == userPreferences.passwordTextLock) {
+            if (pinCredentialStore.verifyPin(PinCredentialStore.PinSlot.APP_LOCK,
+                        customLayoutBinding.textFieldText.text.toString())) {
                 dialog.cancel()
             }
             else{

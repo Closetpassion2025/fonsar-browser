@@ -14,11 +14,13 @@ import com.cookiegames.smartcookie.AppTheme
 import com.cookiegames.smartcookie.R
 import com.cookiegames.smartcookie.di.injector
 import com.cookiegames.smartcookie.preference.UserPreferences
+import com.cookiegames.smartcookie.security.PinCredentialStore
 import javax.inject.Inject
 
 abstract class ThemableBrowserActivity : AppCompatActivity() {
 
     @Inject lateinit var userPreferences: UserPreferences
+    @Inject lateinit var pinCredentialStore: PinCredentialStore
 
     private var themeId: AppTheme = AppTheme.LIGHT
     private var showTabsInDrawer: Boolean = false

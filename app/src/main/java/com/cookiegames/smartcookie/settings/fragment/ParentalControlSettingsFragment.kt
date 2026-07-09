@@ -17,6 +17,7 @@ import com.cookiegames.smartcookie.dialog.BrowserDialog
 import com.cookiegames.smartcookie.dialog.BrowserDialog.setDialogSize
 import com.cookiegames.smartcookie.extensions.withSingleChoiceItems
 import com.cookiegames.smartcookie.preference.UserPreferences
+import com.cookiegames.smartcookie.security.PinCredentialStore
 import com.cookiegames.smartcookie.settings.activity.SettingsActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import javax.inject.Inject
@@ -27,6 +28,7 @@ import javax.inject.Inject
 class ParentalControlSettingsFragment : AbstractSettingsFragment() {
 
     @Inject lateinit var userPreferences: UserPreferences
+    @Inject lateinit var pinCredentialStore: PinCredentialStore
 
     private lateinit var proxyChoices: Array<String>
 
@@ -89,7 +91,8 @@ class ParentalControlSettingsFragment : AbstractSettingsFragment() {
                 .setPositiveButton(R.string.action_ok
                 ) { _, _ ->
                     //listener.onClick(editText.getText().toString());
-                    if (editText.text.toString() != userPreferences.passwordText){
+                    if (!pinCredentialStore.verifyPin(PinCredentialStore.PinSlot.PARENTAL,
+                                editText.text.toString())) {
                         val duration = Toast.LENGTH_SHORT
                         val toast = Toast.makeText(activity, resources.getString(R.string.wrong_password), duration)
                         toast.show()
@@ -200,7 +203,9 @@ class ParentalControlSettingsFragment : AbstractSettingsFragment() {
             editor.putBoolean("noPassword", false)
             editor.apply()
         }
-        else{
+        else {
+            pinCredentialStore.clearPin(PinCredentialStore.PinSlot.PARENTAL)
+
             val prefs: SharedPreferences = activity.getSharedPreferences("com.cookiegames.smartcookie", MODE_PRIVATE)
 
             val editor: SharedPreferences.Editor = prefs.edit()
@@ -218,21 +223,14 @@ class ParentalControlSettingsFragment : AbstractSettingsFragment() {
         val v = activity.layoutInflater.inflate(R.layout.password, null)
         val passwordText = v.findViewById<TextView>(R.id.password)
 
-        // Limit the number of characters since the port needs to be of type int
-        // Use input filters to limit the EditText length and determine the max
-        // length by using length of integer MAX_VALUE
-        val maxCharacters = Integer.MAX_VALUE.toString().length
-
-        passwordText.text = userPreferences.passwordText
-
         BrowserDialog.showCustomDialog(activity) {
             setTitle(R.string.enter_password)
             setView(v)
             setPositiveButton(R.string.action_ok) { _, _ ->
-            val passwordCode = passwordText.text.toString()
-            userPreferences.passwordText = passwordCode
+                val passwordCode = passwordText.text.toString()
+                pinCredentialStore.setPin(PinCredentialStore.PinSlot.PARENTAL, passwordCode)
+            }
         }
-    }
     }
 
 

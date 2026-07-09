@@ -23,6 +23,7 @@ import com.cookiegames.smartcookie.dialog.DialogItem
 import com.cookiegames.smartcookie.extensions.withSingleChoiceItems
 import com.cookiegames.smartcookie.isSupported
 import com.cookiegames.smartcookie.preference.UserPreferences
+import com.cookiegames.smartcookie.security.PinCredentialStore
 import com.cookiegames.smartcookie.utils.WebUtils
 import com.cookiegames.smartcookie.view.SmartCookieView
 import io.reactivex.Completable
@@ -33,6 +34,7 @@ import javax.inject.Inject
 class PrivacySettingsFragment : AbstractSettingsFragment() {
     @Inject internal lateinit var historyRepository: HistoryRepository
     @Inject internal lateinit var userPreferences: UserPreferences
+    @Inject internal lateinit var pinCredentialStore: PinCredentialStore
     @Inject @field:DatabaseScheduler internal lateinit var databaseScheduler: Scheduler
     @Inject @field:MainScheduler internal lateinit var mainScheduler: Scheduler
 
@@ -192,6 +194,10 @@ class PrivacySettingsFragment : AbstractSettingsFragment() {
             return
         }
 
+        if (choice != PasswordChoice.CUSTOM) {
+            pinCredentialStore.clearPin(PinCredentialStore.PinSlot.APP_LOCK)
+        }
+
         val prefs: SharedPreferences = activity.getSharedPreferences("com.cookiegames.smartcookie", Context.MODE_PRIVATE)
         prefs.edit().putBoolean("noPassword", choice != PasswordChoice.CUSTOM).apply()
 
@@ -214,19 +220,12 @@ class PrivacySettingsFragment : AbstractSettingsFragment() {
         val v = activity.layoutInflater.inflate(R.layout.password, null)
         val passwordText = v.findViewById<TextView>(R.id.password)
 
-        // Limit the number of characters since the port needs to be of type int
-        // Use input filters to limit the EditText length and determine the max
-        // length by using length of integer MAX_VALUE
-        val maxCharacters = Integer.MAX_VALUE.toString().length
-
-        passwordText.text = userPreferences.passwordTextLock
-
         BrowserDialog.showCustomDialog(activity) {
             setTitle(R.string.enter_password)
             setView(v)
             setPositiveButton(R.string.action_ok) { _, _ ->
                 val passwordCode = passwordText.text.toString()
-                userPreferences.passwordTextLock = passwordCode
+                pinCredentialStore.setPin(PinCredentialStore.PinSlot.APP_LOCK, passwordCode)
             }
         }
     }
