@@ -557,26 +557,38 @@ abstract class BrowserActivity : ThemableBrowserActivity(), BrowserView, UIContr
     }
 
     private fun showPasswordLock() {
-        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
-
         val customLayoutBinding = DialogAppLockBinding.inflate(layoutInflater)
-        builder.setView(customLayoutBinding.root)
-        builder.setCancelable(false)
 
-        builder.setPositiveButton(resources.getString(R.string.action_ok)) { dialog, _ ->
-            if (pinCredentialStore.verifyPin(PinCredentialStore.PinSlot.APP_LOCK,
-                        customLayoutBinding.textFieldText.text.toString())) {
-                dialog.cancel()
+        val dialog = MaterialAlertDialogBuilder(this)
+            .setView(customLayoutBinding.root)
+            .setCancelable(false)
+            .setPositiveButton(R.string.action_ok, null)
+            .setNegativeButton(R.string.action_cancel) { _, _ ->
+                finishAffinity()
             }
-            else{
-                this.finishAffinity()
+            .create()
+
+        dialog.setOnShowListener {
+            customLayoutBinding.textFieldText.setOnEditorActionListener { _, actionId, _ ->
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    dialog.getButton(AlertDialog.BUTTON_POSITIVE).performClick()
+                    true
+                } else {
+                    false
+                }
+            }
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
+                if (pinCredentialStore.verifyPin(
+                        PinCredentialStore.PinSlot.APP_LOCK,
+                        customLayoutBinding.textFieldText.text.toString()
+                    )) {
+                    dialog.dismiss()
+                } else {
+                    finishAffinity()
+                }
             }
         }
-        builder.setNegativeButton(resources.getString(R.string.action_cancel)) { _, _ ->
-            this.finishAffinity()
-        }
 
-        val dialog: AlertDialog = builder.create()
         dialog.show()
     }
 
