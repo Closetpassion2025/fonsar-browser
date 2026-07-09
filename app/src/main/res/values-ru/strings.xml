@@ -342,7 +342,6 @@
     <string name="search_engine_baidu">Baidu</string>
     <string name="search_engine_yandex">Яндекс</string>
     <string name="search_engine_searx">SearX.be</string>
-    <string name="search_engine_searx_cookiejarapps">CookieJarApps SearX</string>
     <string name="privacy">Просмотр политики конфиденциальности</string>
     <string name="privacy_info">Ознакомьтесь с политикой конфиденциальности SmartCookieWeb</string>
     <string name="block_malware">Блокировать вредоносные сайты</string>
@@ -488,7 +487,6 @@
     <string name="remove_userscript">Удалить UserScript</string>
     <string name="remove_userscript_description">Вы действительно хотите удалить этот UserScript?</string>
     <string name="scripts">UserScripts</string>
-    <string name="scripts_store">Магазин UserScripts</string>
     <string name="new_tab_opened">Открыта новая вкладка</string>
     <string name="switch_button">Переключиться</string>
     <string name="dont_ask_again">Больше не спрашивать</string>
@@ -526,6 +524,5 @@
     <string name="example_item">Пример элемента</string>
     <string name="stack_items_reverse">Стек элементов снизу выдвижной панели</string>
     <string name="forgot_password">Забыл пароль</string>
-    <string name="recover_app_lock">Пожалуйста, посетите <a href="https://smartcookieweb.com/recover.php">smartcookieweb.com/recover.php</a> в другом браузере для восстановления пароля блокировки приложения.</string>
     <!-- finish pages -->
 </resources>

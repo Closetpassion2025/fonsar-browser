@@ -343,7 +343,6 @@
     <string name="search_engine_baidu">Baidu</string>
     <string name="search_engine_yandex">Yandex</string>
     <string name="search_engine_searx">SearX.be</string>
-    <string name="search_engine_searx_cookiejarapps">CookieJarApps SearX</string>
     <string name="privacy">Gizlilik Politikasını Görüntüle</string>
     <string name="privacy_info">SmartCookieWeb gizlilik politikasını okuyun</string>
     <string name="block_malware">Kötü amaçlı siteleri engelle</string>
@@ -489,7 +488,6 @@
     <string name="remove_userscript">Kullanıcı Betiğini Kaldır</string>
     <string name="remove_userscript_description">Bu Kullanıcı Betiğini kaldırmak istiyor musunuz?</string>
     <string name="scripts">Kullanıcı Betiği</string>
-    <string name="scripts_store">Kullanıcı Betiği deposu</string>
     <string name="new_tab_opened">New tab opened</string>
     <string name="switch_button">Switch</string>
     <string name="dont_ask_again">Don\'t ask again</string>

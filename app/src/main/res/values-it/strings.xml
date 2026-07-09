@@ -338,7 +338,6 @@
     <string name="search_engine_baidu">Baidu</string>
     <string name="search_engine_yandex">Yandex</string>
     <string name="search_engine_searx">SearX.be</string>
-    <string name="search_engine_searx_cookiejarapps">CookieJarApps SearX</string>
     <string name="privacy">Visualizza Informativa sulla riservatezza</string>
     <string name="privacy_info">Leggi Informativa sulla riservatezza di SmartCookieWeb</string>
     <string name="block_malware">Blocca siti dannosi</string>
@@ -484,7 +483,6 @@
     <string name="remove_userscript">Rimuovi UserScript</string>
     <string name="remove_userscript_description">Si desidera rimuovere questo UserScript?</string>
     <string name="scripts">UserScript</string>
-    <string name="scripts_store">Negozio per UserScript</string>
     <string name="new_tab_opened">Nuova scheda aperta</string>
     <string name="switch_button">Scambia</string>
     <string name="dont_ask_again">Non chiedere di nuovo</string>

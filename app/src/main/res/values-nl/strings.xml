@@ -331,7 +331,6 @@
     <string name="search_engine_baidu">Baidu</string>
     <string name="search_engine_yandex">Yandex</string>
     <string name="search_engine_searx">SearX.be</string>
-    <string name="search_engine_searx_cookiejarapps">CookieJarApps SearX</string>
     <string name="privacy">Bekijk privacybeleid</string>
     <string name="privacy_info">Lees het SmartCookieWeb privacybeleid</string>
     <string name="block_malware">Blokkeer kwaadaardige sites</string>

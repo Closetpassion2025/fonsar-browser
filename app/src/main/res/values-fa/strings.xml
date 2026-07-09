@@ -331,7 +331,6 @@
     <string name="search_engine_baidu">بایدو</string>
     <string name="search_engine_yandex">یاندکس</string>
     <string name="search_engine_searx">SearX.be</string>
-    <string name="search_engine_searx_cookiejarapps">CookieJarApps SearX</string>
     <string name="privacy">دیدن شیوه پوشش</string>
     <string name="privacy_info">خواندن شیوه پوشیدگی کلوچه هوشمند وب</string>
     <string name="block_malware">بستن پایگاه‌های خرابکار</string>

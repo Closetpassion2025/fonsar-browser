@@ -340,7 +340,6 @@
     <string name="search_engine_baidu">Baidu</string>
     <string name="search_engine_yandex">Yandex</string>
     <string name="search_engine_searx">SearX.be</string>
-    <string name="search_engine_searx_cookiejarapps">SearX hébergé par CookieJarApps</string>
     <string name="privacy">Politique de confidentialité</string>
     <string name="privacy_info">Lire la politique de confidentialité de SmartCookieWeb</string>
     <string name="block_malware">Bloquer les sites malveillants</string>
@@ -486,7 +485,6 @@
     <string name="remove_userscript">Désinstaller cet userscript</string>
     <string name="remove_userscript_description">Voulez-vous désinstaller cet userscript ?</string>
     <string name="scripts">Userscripts / Scripts utilisateur</string>
-    <string name="scripts_store">Catalogue d’userscripts</string>
     <string name="new_tab_opened">Nouvel onglet ouvert</string>
     <string name="switch_button">Basculer</string>
     <string name="dont_ask_again">Ne plus demander</string>
@@ -524,6 +522,5 @@
     <string name="example_item">Exemple</string>
     <string name="stack_items_reverse">Aligner les éléments en bas du panneau de navigation</string>
     <string name="forgot_password">Forgot password</string>
-    <string name="recover_app_lock">Please visit <a href="https://smartcookieweb.com/recover.php">smartcookieweb.com/recover.php</a> in another browser to recover your app lock password.</string>
     <!-- finish pages -->
 </resources>

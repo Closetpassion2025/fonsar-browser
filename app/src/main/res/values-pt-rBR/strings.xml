@@ -340,7 +340,6 @@
     <string name="search_engine_baidu">Baidu</string>
     <string name="search_engine_yandex">Yandex</string>
     <string name="search_engine_searx">SearX.be</string>
-    <string name="search_engine_searx_cookiejarapps">CookieJarApps SearX</string>
     <string name="privacy">Ver Política de Privacidade</string>
     <string name="privacy_info">Ler política de privacidade do SmartCookieWeb</string>
     <string name="block_malware">Bloquear sites maliciosos</string>
@@ -486,7 +485,6 @@
     <string name="remove_userscript">Remover UserScript</string>
     <string name="remove_userscript_description">Deseja remover este UserScript?</string>
     <string name="scripts">UserScripts</string>
-    <string name="scripts_store">Loja de UserScripts</string>
     <string name="new_tab_opened">Nova aba aberta</string>
     <string name="switch_button">Trocar</string>
     <string name="dont_ask_again">Não perguntar novamente</string>
@@ -524,6 +522,5 @@
     <string name="example_item">Exemplo de item</string>
     <string name="stack_items_reverse">Empilhar itens da parte inferior do menu</string>
     <string name="forgot_password">Esqueci a senha</string>
-    <string name="recover_app_lock">Por favor, visite <a href="https://smartcookieweb.com/recover.php">smartcookieweb.com/recover.php</a> em outro navegador para recuperar sua senha de bloqueio do aplicativo.</string>
     <!-- finish pages -->
 </resources>
