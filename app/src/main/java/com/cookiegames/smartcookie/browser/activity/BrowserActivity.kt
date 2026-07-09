@@ -474,7 +474,6 @@ abstract class BrowserActivity : ThemableBrowserActivity(), BrowserView, UIContr
         }
 
         customView.findViewById<FrameLayout>(R.id.more_button).setOnClickListener(this)
-        customView.findViewById<FrameLayout>(R.id.download_button).setOnClickListener(this)
 
         // create the search EditText in the ToolBar
         searchView = customView.findViewById<SearchView>(R.id.search).apply {
@@ -2224,18 +2223,6 @@ abstract class BrowserActivity : ThemableBrowserActivity(), BrowserView, UIContr
             }
             R.id.more_button -> {
                 popUpClass.showPopupWindow(v, this)
-            }
-            R.id.download_button -> {
-                val sendIntent: Intent = Intent().apply {
-                    action = Intent.ACTION_SEND
-                    putExtra(Intent.EXTRA_TEXT, currentTab.url)
-                    type = "text/plain"
-                }
-                sendIntent.setClassName("com.cookiejarapps.smartcookieweb_ytdl",
-                        "com.cookiejarapps.smartcookieweb_ytdl.MainActivity")
-
-                val shareIntent = Intent.createChooser(sendIntent, null)
-                startActivity(shareIntent)
             }
             R.id.button_next -> findResult?.nextResult()
             R.id.button_back -> findResult?.previousResult()

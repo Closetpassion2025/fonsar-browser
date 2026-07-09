@@ -4,7 +4,6 @@ import android.annotation.TargetApi
 import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.MailTo
 import android.net.Uri
@@ -74,8 +73,6 @@ class SmartCookieWebClient(
     private val emptyResponseByteArray: ByteArray = byteArrayOf()
     private var urlLoaded = ""
     private var lastBlockedDomain = ""
-
-    private var knownUndetectedVideoUrls: Array<String> = arrayOf("xvideos.com")
 
     private var badsslList: MutableList<String> = ArrayList()
     private var badsslErrors: MutableList<SslError> = ArrayList<SslError>()
@@ -560,15 +557,6 @@ class SmartCookieWebClient(
         super.onLoadResource(view, url)
     }
 
-    fun isPackageInstalled(packageName: String, packageManager: PackageManager): Boolean {
-        return try {
-            packageManager.getPackageInfo(packageName, 0)
-            true
-        } catch (e: PackageManager.NameNotFoundException) {
-            false
-        }
-    }
-
     fun reloadIncludingErrorPage(view: WebView?){
         if(errored){
             view?.loadUrl(currentUrl)
@@ -580,13 +568,6 @@ class SmartCookieWebClient(
 
     override fun onPageStarted(view: WebView, url: String, favicon: Bitmap?) {
         errored = true
-        if(isPackageInstalled(activity.resources.getString(R.string.ytdl_package_name), activity.packageManager) && stringContainsItemFromList(url, knownUndetectedVideoUrls)){
-            activity.findViewById<FrameLayout>(R.id.download_button).visibility = View.VISIBLE
-        }
-        else{
-            activity.findViewById<FrameLayout>(R.id.download_button).visibility = View.GONE
-        }
-
         if(view.settings.userAgentString!!.contains("wv")){
             view.settings.userAgentString = view.settings.userAgentString?.replace("; wv", "")
         }
