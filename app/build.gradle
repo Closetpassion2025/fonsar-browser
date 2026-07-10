@@ -134,6 +134,10 @@ android {
         abortOnError true
     }
 
+    lint {
+        baseline = file("lint-baseline.xml")
+    }
+
     packagingOptions {
         exclude '.readme'
     }

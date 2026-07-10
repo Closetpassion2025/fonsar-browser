@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:installLocation="auto">
 
     <queries>
@@ -85,7 +86,7 @@
             android:theme="@style/Theme.LightTheme"
             android:windowSoftInputMode="stateHidden|adjustResize"
             android:exported="true">
-            <intent-filter>
+            <intent-filter tools:ignore="AppLinkUrlError">
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.PROCESS_TEXT" />
 

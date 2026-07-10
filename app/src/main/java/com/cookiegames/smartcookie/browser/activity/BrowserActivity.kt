@@ -87,7 +87,6 @@ import com.cookiegames.smartcookie.log.Logger
 import com.cookiegames.smartcookie.notifications.IncognitoNotification
 import com.cookiegames.smartcookie.permissions.PermissionsManager
 import com.cookiegames.smartcookie.permissions.PermissionsResultAction
-import com.cookiegames.smartcookie.permissions.PermissionsManager
 import com.cookiegames.smartcookie.popup.PopUpClass
 import com.cookiegames.smartcookie.search.SearchEngineProvider
 import com.cookiegames.smartcookie.search.SuggestionsAdapter
