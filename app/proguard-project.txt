@@ -113,4 +113,6 @@
 # App Lock / encrypted PIN storage (R8 release)
 -keep class com.cookiegames.smartcookie.security.** { *; }
 -keep class androidx.security.crypto.** { *; }
--keep class com.google.crypto.tink.** { *; }
+-dontwarn com.google.api.client.http.**
+-dontwarn com.google.api.client.http.javanet.**
+-dontwarn org.joda.time.Instant
