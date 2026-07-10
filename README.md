@@ -1,52 +1,55 @@
-<p align="center"><a href="http://smartcookieweb.com"><img src="https://user-images.githubusercontent.com/44752343/112613474-0c339b00-8e18-11eb-8106-202c0c132715.png" width="150"></a></p>
-<h2 align="center"><b>SmartCookieWeb</b></h2>
+<p align="center"><img src="https://user-images.githubusercontent.com/44752343/112613474-0c339b00-8e18-11eb-8106-202c0c132715.png" width="150" alt="Fonsar Browser"></p>
+<h2 align="center"><b>Fonsar Browser</b></h2>
 <h4 align="center">A secure, free and open source WebView-based web browser for Android.</h4>
 
-<p align="center"> 
-<a href="https://github.com/Closetpassion2025/fonsar-browser/blob/master/NOTICE" alt="MPL-2.0 License"><img src="https://img.shields.io/badge/License-MPL--2.0-brightgreen.svg"></a> 
-<a href="https://crowdin.com/project/smartcookieweb" alt="Crowdin"><img src="https://badges.crowdin.net/smartcookieweb/localized.svg"></a> 
-<a href="https://liberapay.com/CookieJarApps" alt="Liberapay Patrons"><img src="https://img.shields.io/liberapay/patrons/CookieJarApps"></a> 
-<a href="https://t.me/scwgroup" alt="SmartCookieWeb Telegram"><img src="https://img.shields.io/badge/Chat%20on-Telegram-brightgreen.svg"></a> 
-<a href="https://matrix.to/#/#smartcookieweb:matrix.org" alt="SmartCookieWeb Matrix"><img src="https://img.shields.io/badge/Chat%20on-Matrix-brightgreen.svg"></a> 
-</p> 
-<hr>
 <p align="center">
- <a href='https://play.google.com/store/apps/details?id=com.cookiegames.smartcookie&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_gb/badges/static/images/badges/en_badge_web_generic.png' height="50"/></a> 
- <a href='https://f-droid.org/en/packages/com.cookiegames.smartcookie/'><img alt='Get it on F-Droid' src='https://gitlab.com/fdroid/artwork/-/raw/master/badge/get-it-on-en.png' height="50"/></a>
+<a href="https://github.com/Closetpassion2025/fonsar-browser/blob/master/NOTICE" alt="MPL-2.0 License"><img src="https://img.shields.io/badge/License-MPL--2.0-brightgreen.svg"></a>
+<a href="https://github.com/Closetpassion2025/fonsar-browser/releases" alt="GitHub Release"><img src="https://img.shields.io/github/v/release/Closetpassion2025/fonsar-browser.svg"></a>
+</p>
+<hr>
 
 ---
 
 ## Support
 
-Need help? Open an issue here, or:
+Need help?
 
-- Visit the [docs](https://smartcookieweb.com/docs/intro)
-- [Email me](mailto:support@cookiejarapps.com) at `support@cookiejarapps.com`
-- Join the [Telegram chat](https://t.me/scwgroup)
-- Join the [Matrix chat](https://matrix.to/#/#smartcookieweb:matrix.org)
+- [Open an issue](https://github.com/Closetpassion2025/fonsar-browser/issues) on this repository
+- Read the [privacy policy](https://closetpassion2025.github.io/fonsar-browser/privacy-policy.html) (English and Português)
 
 ---
 
 ## Installation
 
-- To get started with this project, import it into Android Studio or build from the command line with Gradle:
- 
- `gradlew assembleDebug` or `./gradlew assembleDebug`
+Build from source with Android Studio or Gradle:
+
+```bash
+./gradlew :app:assembleScMainDebug
+```
+
+Release APK/AAB:
+
+```bash
+./gradlew :app:assembleScMainRelease
+```
+
+Release signing credentials go in `local.properties` (see `app/build.gradle`).
 
 ---
 
 ## Features
 
 - Modern, clean UI
-- < 5MB download
-- Tons of settings
+- Small download size
+- Extensive settings
 - Blocks ads and trackers
+- Optional App Lock (PIN / biometric)
 
 ---
 
 ## Contributing
 
-Contributions are greatly appreciated. Feel free to open an issue or pull request. Read the [developer docs](https://smartcookieweb.com/docs/smartcookieweb/developer/index) or [help translate](translate.cookiejarapps.com)
+Contributions are welcome via [pull requests](https://github.com/Closetpassion2025/fonsar-browser/pulls) and [issues](https://github.com/Closetpassion2025/fonsar-browser/issues) on this fork.
 
 ---
 
@@ -68,10 +71,9 @@ Fonsar Browser does not operate first-party online services. See [ONLINE.md](ONL
 
 ---
 
-
 ## Lightning Browser
 
-SmartCookieWeb is a fork of Lightning Browser intended to continue development. Here are some of the changes I've made since I started the project:
+SmartCookieWeb is a fork of Lightning Browser intended to continue development. Here are some of the changes inherited from upstream:
 
 - New, more modern, UI
 - Parental controls
