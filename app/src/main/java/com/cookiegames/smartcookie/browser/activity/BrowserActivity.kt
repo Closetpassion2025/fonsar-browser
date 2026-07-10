@@ -154,8 +154,6 @@ abstract class BrowserActivity : ThemableBrowserActivity(), BrowserView, UIContr
 
     private var findResult: FindResults? = null
 
-    private var prefs: SharedPreferences? = null
-
     private var lastTouchTime = 0
     private var currentTouchTime = 0
 
@@ -346,8 +344,6 @@ abstract class BrowserActivity : ThemableBrowserActivity(), BrowserView, UIContr
                 RecentTabModel(),
                 logger
         )
-        prefs = getSharedPreferences("com.cookiegames.smartcookie", MODE_PRIVATE)
-
 
         if(userPreferences.navbar) {
             setKeyboardVisibilityListener(this)
