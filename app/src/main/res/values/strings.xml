@@ -377,7 +377,7 @@
 
     <string name="privacy">View Privacy Policy</string>
     <string name="privacy_info">Read the Fonsar Browser privacy policy</string>
-    <string name="url_project" translatable="false">https://github.com/CookieJarApps/SmartCookieWeb</string>
+    <string name="url_project" translatable="false">https://github.com/fonsar/FonsarBrowser</string>
     <string name="block_malware">Block malicious sites</string>
     <string name="block_sites">Custom site block</string>
     <string name="block_sites_title">Custom site block (separate sites with a comma)</string>
