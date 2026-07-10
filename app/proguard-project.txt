@@ -109,3 +109,8 @@
 -dontwarn android.hardware.fingerprint.FingerprintManager
 -dontwarn android.hardware.fingerprint.FingerprintManager$AuthenticationCallback
 -dontwarn android.hardware.fingerprint.FingerprintManager$CryptoObject
+
+# App Lock / encrypted PIN storage (R8 release)
+-keep class com.cookiegames.smartcookie.security.** { *; }
+-keep class androidx.security.crypto.** { *; }
+-keep class com.google.crypto.tink.** { *; }
