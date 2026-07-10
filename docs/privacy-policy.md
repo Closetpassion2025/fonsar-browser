@@ -2,7 +2,7 @@
 
 **Last updated:** 10 July 2026  
 **Application ID:** `com.fonsar.browser`  
-**Contact:** EMAIL_AQUI
+**Contact:** geral@closetpassion.pt
 
 This document describes how **Fonsar Browser** handles information. It reflects the behaviour of the app as shipped in this repository.
 
@@ -91,7 +91,7 @@ We may update this policy when the app changes. The “Last updated” date at t
 
 ### Contact
 
-Questions about privacy: EMAIL_AQUI
+Questions about privacy: geral@closetpassion.pt
 
 ---
 
@@ -178,4 +178,4 @@ Esta política pode ser actualizada quando a app mudar. A data «Last updated» 
 
 ### Contacto
 
-Questões sobre privacidade: EMAIL_AQUI
+Questões sobre privacidade: geral@closetpassion.pt
