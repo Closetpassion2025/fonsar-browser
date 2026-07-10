@@ -93,7 +93,7 @@ android {
             }
 
             ndk {
-                abiFilters "arm64-v8a", "armeabi-v7a", "armeabi", "mips"
+                abiFilters "arm64-v8a", "armeabi-v7a"
             }
         }
     }
@@ -125,7 +125,7 @@ android {
             dimension 'capabilities'
             applicationId 'com.fonsar.browser.beta'
             resValue "string", "app_name", "Fonsar Browser Beta"
-            versionCode 16
+            versionCode 153
             versionName "17.0-beta4"
         }
     }
@@ -174,7 +174,7 @@ dependencies {
     implementation "androidx.drawerlayout:drawerlayout:1.2.0"
     implementation "androidx.preference:preference-ktx:1.2.1"
     implementation "androidx.biometric:biometric:1.1.0"
-    implementation "androidx.security:security-crypto:1.1.0-alpha06"
+    implementation "androidx.security:security-crypto:1.1.0"
 
     // html parsing for reading mode
     implementation 'org.jsoup:jsoup:1.22.2'
