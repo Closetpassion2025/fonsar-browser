@@ -3,14 +3,7 @@
 <h4 align="center">A secure, free and open source WebView-based web browser for Android.</h4>
 
 <p align="center"> 
-<a href="https://github.com/CookieJarApps/SmartCookieWeb/releases" alt="GitHub Release (latest by date)"><img src="https://img.shields.io/github/v/release/CookieJarApps/SmartCookieWeb.svg" ></a> 
-<a href="https://github.com/CookieJarApps/SmartCookieWeb/actions" alt="Android CI"><img src="https://github.com/CookieJarApps/SmartCookieWeb/workflows/Android%20CI/badge.svg?event=push"></a> 
-<a href="https://img.shields.io/travis/cookiejarapps/smartcookieweb" alt="Travis (.org)"><img src="https://img.shields.io/travis/cookiejarapps/smartcookieweb"></a> 
-<a href="https://www.mozilla.org/en-US/MPL/2.0/" alt="MPL-2.0 License"><img src="https://img.shields.io/github/license/cookiejarapps/smartcookieweb"></a> 
-<a href="https://github.com/CookieJarApps/SmartCookieWeb/releases" alt="GitHub downloads"><img src="https://img.shields.io/github/downloads/cookiejarapps/smartcookieweb/total.svg"></a> 
-<a href="https://app.fossa.com/projects/git%2Bgithub.com%2FCookieJarApps%2FSmartCookieWeb?ref=badge_shield" alt="FOSSA Status"><img src="https://app.fossa.com/api/projects/git%2Bgithub.com%2FCookieJarApps%2FSmartCookieWeb.svg?type=shield"></a> 
-<a href="https://github.com/CookieJarApps/SmartCookieWeb/stargazers" alt="GitHub Stars"><img src="https://img.shields.io/github/stars/cookiejarapps/smartcookieweb?style=social"></a> 
-<a href="https://github.com/CookieJarApps/SmartCookieWeb/issues" alt="GitHub Issues"><img src="https://img.shields.io/github/issues-raw/cookiejarapps/smartcookieweb"></a> 
+<a href="https://github.com/Closetpassion2025/fonsar-browser/blob/master/NOTICE" alt="MPL-2.0 License"><img src="https://img.shields.io/badge/License-MPL--2.0-brightgreen.svg"></a> 
 <a href="https://crowdin.com/project/smartcookieweb" alt="Crowdin"><img src="https://badges.crowdin.net/smartcookieweb/localized.svg"></a> 
 <a href="https://liberapay.com/CookieJarApps" alt="Liberapay Patrons"><img src="https://img.shields.io/liberapay/patrons/CookieJarApps"></a> 
 <a href="https://t.me/scwgroup" alt="SmartCookieWeb Telegram"><img src="https://img.shields.io/badge/Chat%20on-Telegram-brightgreen.svg"></a> 
@@ -20,7 +13,6 @@
 <p align="center">
  <a href='https://play.google.com/store/apps/details?id=com.cookiegames.smartcookie&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_gb/badges/static/images/badges/en_badge_web_generic.png' height="50"/></a> 
  <a href='https://f-droid.org/en/packages/com.cookiegames.smartcookie/'><img alt='Get it on F-Droid' src='https://gitlab.com/fdroid/artwork/-/raw/master/badge/get-it-on-en.png' height="50"/></a>
-<p align="center"><a href="https://github.com/CookieJarApps/SmartCookieWeb-beta/releases"><b>Beta Releases</b></a> &bull; <a href="https://smartcookieweb.com/docs/intro"><b>Docs</b></a> &bull; <a href="https://smartcookieweb.com"><b>Website</b></a> </p>
 
 ---
 
@@ -64,7 +56,7 @@ Fonsar Browser is a derivative work based on [SmartCookieWeb](https://github.com
 
 Modifications in this fork are licensed under MPL-2.0. Upstream copyright notices in source files are retained as required by the license. See [NOTICE](NOTICE) for attribution details.
 
-Modified source: [TODO: fork repository URL]
+Modified source: https://github.com/Closetpassion2025/fonsar-browser
 
 Please read the MPL-2.0 before forking or redistributing.
 
@@ -76,8 +68,6 @@ Fonsar Browser does not operate first-party online services. See [ONLINE.md](ONL
 
 ---
 
-
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FCookieJarApps%2FSmartCookieWeb.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FCookieJarApps%2FSmartCookieWeb?ref=badge_large)
 
 ## Lightning Browser
 
