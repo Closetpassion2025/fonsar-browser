@@ -410,6 +410,9 @@
     <string name="reset_settings">Definições repostas. Estamos a fechar a aplicação…</string>
     <string name="force_zoom">Impor zoom</string>
     <string name="dark_mode">Modo escuro</string>
+    <string name="translator">Traduzir página</string>
+    <string name="translate_summary">Mostrar no menu ⋮. Envia o URL da página ao Google (translate.goog) quando toca em Traduzir.</string>
+    <string name="translate_unavailable">Não é possível traduzir esta página</string>
     <string name="submit">Submeter extensão</string>
     <string name="coming_soon">Mais algumas a caminho...</string>
     <string name="navbar_col">Cor da barra de navegação</string>

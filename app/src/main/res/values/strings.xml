@@ -465,6 +465,9 @@
     <string name="force_zoom">Override website zoom block</string>
 
     <string name="dark_mode">Dark mode</string>
+    <string name="translator">Translate page</string>
+    <string name="translate_summary">Show in the ⋮ menu. Sends the page URL to Google (translate.goog) when you tap Translate.</string>
+    <string name="translate_unavailable">This page cannot be translated</string>
     <string name="submit">Submit extension</string>
 
     <string name="coming_soon">More coming soon...</string>

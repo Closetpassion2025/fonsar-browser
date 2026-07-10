@@ -48,6 +48,7 @@ import com.cookiegames.smartcookie.preference.UserPreferences
 import com.cookiegames.smartcookie.reading.activity.ReadingActivity
 import com.cookiegames.smartcookie.settings.activity.SettingsActivity
 import com.cookiegames.smartcookie.utils.IntentUtils
+import com.cookiegames.smartcookie.utils.PageTranslator
 import com.cookiegames.smartcookie.utils.Utils
 import com.cookiegames.smartcookie.utils.isSpecialUrl
 import com.cookiegames.smartcookie.utils.stringContainsItemFromList
@@ -161,6 +162,7 @@ class PopUpClass {
                 MenuDividerClass(),
                 MenuItemClass("share", R.string.action_share, R.drawable.ic_share_black, true),
                 MenuItemClass("open_in_app", R.string.open_in_app, R.drawable.ic_round_open_in_new, userPreferences.navbar && !activity.isIncognito() && intent.resolveActivity(packageManager) != null && intent.resolveActivity(packageManager).packageName != activity.applicationContext.packageName && !currentUrl.isSpecialUrl()),
+                MenuItemClass("translate", R.string.translator, R.drawable.ic_translate, isTranslateMenuEnabled(currentUrl)),
                 MenuItemClass("print", R.string.action_print, R.drawable.ic_round_print, true),
                 MenuDividerClass(),
                 MenuItemClass("history", R.string.action_history, R.drawable.ic_history, true),
@@ -395,6 +397,14 @@ class PopUpClass {
                     view.context.startActivity(Intent(view.context, BrowserActivity::class.java))
                     activity.finish()
                 }
+                "translate" -> {
+                    val translatedUrl = PageTranslator.buildTranslateGoogUrl(currentUrl)
+                    if (translatedUrl != null) {
+                        currentView?.loadUrl(translatedUrl)
+                    } else {
+                        activity.snackbar(R.string.translate_unavailable)
+                    }
+                }
                 "open_in_app" -> {
                     val components = arrayOf(ComponentName(activity, BrowserActivity::class.java))
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
@@ -406,4 +416,10 @@ class PopUpClass {
             popupWindow.dismiss()
         }
     }
+
+    private fun isTranslateMenuEnabled(currentUrl: String?): Boolean =
+        userPreferences.translateExtension
+                && !currentUrl.isNullOrBlank()
+                && !currentUrl.isSpecialUrl()
+                && PageTranslator.buildTranslateGoogUrl(currentUrl) != null
 }
