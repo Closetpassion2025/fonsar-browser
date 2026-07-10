@@ -810,9 +810,8 @@ class SmartCookieWebClient(
         }
         val alertMessage = activity.getString(R.string.message_insecure_connection, stringBuilder.toString())
 
-        if(!userPreferences.ssl){
-            handler.proceed()
-            Toast.makeText(activity, errorCodeMessageCodes[0], Toast.LENGTH_SHORT).show()
+        if (!userPreferences.ssl) {
+            handler.cancel()
             return
         }
 
