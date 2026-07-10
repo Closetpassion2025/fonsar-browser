@@ -4,12 +4,10 @@
 package com.cookiegames.smartcookie.settings.activity
 
 import android.os.Bundle
-import android.view.MenuItem
 import androidx.activity.OnBackPressedCallback
-import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.cookiegames.smartcookie.AppTheme
@@ -40,21 +38,7 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
         setContentView(R.layout.activity_settings)
 
         toolbar = findViewById(R.id.toolbar)
-
-        try {
-            setSupportActionBar(toolbar)
-            val actionBar: ActionBar? = supportActionBar
-            if (actionBar != null) {
-                actionBar.setDisplayShowTitleEnabled(false)
-                actionBar.setDisplayHomeAsUpEnabled(true)
-                actionBar.setDisplayShowHomeEnabled(true)
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-
-        toolbar.title = getString(R.string.settings)
-        toolbar.setNavigationOnClickListener { navigateUp() }
+        setupToolbar()
 
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
@@ -67,47 +51,49 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
         }
 
         if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.container, SettingsFragment())
-                .commit()
+            supportFragmentManager.commit {
+                replace(R.id.container, SettingsFragment())
+            }
         }
 
         overridePendingTransition(R.anim.slide_in_from_right, R.anim.fade_out_scale)
     }
 
+    private fun setupToolbar() {
+        toolbar.apply {
+            setNavigationIcon(R.drawable.ic_action_back)
+            setNavigationContentDescription(R.string.action_back)
+            setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
+        }
+        toolbar.title = getString(R.string.settings)
+    }
+
+    /**
+     * Handle sub-settings navigation on the activity fragment manager.
+     * Must return true so PreferenceFragmentCompat does not run its fallback transaction too.
+     */
     override fun onPreferenceStartFragment(
         caller: PreferenceFragmentCompat,
         pref: Preference
     ): Boolean {
         val fragmentClass = pref.fragment ?: return false
-        val fragment: Fragment = supportFragmentManager.fragmentFactory.instantiate(
-            classLoader,
-            fragmentClass
-        )
+        val fragment = supportFragmentManager.fragmentFactory.instantiate(classLoader, fragmentClass)
         fragment.arguments = pref.extras
         fragment.setTargetFragment(caller, 0)
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.container, fragment)
-            .addToBackStack(pref.title?.toString())
-            .commit()
+        supportFragmentManager.commit {
+            replace(R.id.container, fragment)
+            addToBackStack(pref.title?.toString())
+        }
         toolbar.title = pref.title
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home) {
-            navigateUp()
-            return true
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
     private fun navigateUp() {
         if (supportFragmentManager.backStackEntryCount > 0) {
-            supportFragmentManager.popBackStack()
-        } else {
-            finish()
+            supportFragmentManager.popBackStackImmediate()
+            return
         }
+        finish()
     }
 
     private fun updateToolbarTitle() {
