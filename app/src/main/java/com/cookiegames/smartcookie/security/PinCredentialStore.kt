@@ -3,9 +3,13 @@ package com.cookiegames.smartcookie.security
 import android.content.Context
 import android.content.SharedPreferences
 import android.util.Base64
+import android.util.Log
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.cookiegames.smartcookie.di.UserPrefs
+import java.io.IOException
+import java.security.GeneralSecurityException
+import java.security.KeyStore
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -24,7 +28,7 @@ class PinCredentialStore @Inject constructor(
         PARENTAL
     }
 
-    private val securePreferences: SharedPreferences = createSecurePreferences(context)
+    private val securePreferences: SharedPreferences = createSecurePreferences(context.applicationContext)
 
     /**
      * Idempotent migration for users upgrading from plaintext PIN storage.
@@ -99,11 +103,27 @@ class PinCredentialStore @Inject constructor(
     }
 
     companion object {
+        private const val TAG = "PinCredentialStore"
         private const val SECURE_PREFS_NAME = "pin_credentials"
         private const val LEGACY_APP_LOCK_KEY = "usePasswordLock"
         private const val LEGACY_PARENTAL_KEY = "usePassword"
+        private const val MASTER_KEY_ALIAS = "_androidx_security_master_key_"
 
         private fun createSecurePreferences(context: Context): SharedPreferences {
+            return try {
+                openSecurePreferences(context)
+            } catch (e: GeneralSecurityException) {
+                Log.w(TAG, "Encrypted prefs failed; clearing corrupt crypto state and retrying", e)
+                clearCorruptCryptoState(context)
+                openSecurePreferences(context)
+            } catch (e: IOException) {
+                Log.w(TAG, "Encrypted prefs failed; clearing corrupt crypto state and retrying", e)
+                clearCorruptCryptoState(context)
+                openSecurePreferences(context)
+            }
+        }
+
+        private fun openSecurePreferences(context: Context): SharedPreferences {
             val masterKey = MasterKey.Builder(context)
                 .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
                 .build()
@@ -114,6 +134,24 @@ class PinCredentialStore @Inject constructor(
                 EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
                 EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
             )
+        }
+
+        /**
+         * Recovery for unusable Android Keystore master keys (Tink #535).
+         * Clears encrypted prefs and the Keystore alias so a fresh keyset can be created.
+         * Stored PIN hashes are lost; users must set PINs again.
+         */
+        internal fun clearCorruptCryptoState(context: Context) {
+            context.deleteSharedPreferences(SECURE_PREFS_NAME)
+            try {
+                val keyStore = KeyStore.getInstance("AndroidKeyStore")
+                keyStore.load(null)
+                if (keyStore.containsAlias(MASTER_KEY_ALIAS)) {
+                    keyStore.deleteEntry(MASTER_KEY_ALIAS)
+                }
+            } catch (e: Exception) {
+                Log.w(TAG, "Failed to delete master key alias from Android Keystore", e)
+            }
         }
     }
 }
