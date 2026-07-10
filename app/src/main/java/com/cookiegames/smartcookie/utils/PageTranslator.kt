@@ -2,6 +2,7 @@ package com.cookiegames.smartcookie.utils
 
 import android.os.Build
 import okhttp3.HttpUrl
+import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import java.util.Locale
 
 /**
@@ -72,12 +73,12 @@ object PageTranslator {
     ): String? {
         if (originalUrl.isNullOrBlank()) return null
 
-        val parsed = HttpUrl.parse(originalUrl.trim()) ?: return null
-        val scheme = parsed.scheme()
+        val parsed = originalUrl.trim().toHttpUrlOrNull() ?: return null
+        val scheme = parsed.scheme
         if (scheme != "http" && scheme != "https") return null
-        if (parsed.port() != HttpUrl.defaultPort(scheme)) return null
+        if (parsed.port != HttpUrl.defaultPort(scheme)) return null
 
-        val host = parsed.host()
+        val host = parsed.host
         if (!isValidSourceHost(host)) return null
 
         val translatedHost = "${encodeHostForTranslateGoog(host)}.$TRANSLATE_GOOG_SUFFIX"
@@ -87,9 +88,9 @@ object PageTranslator {
             .scheme("https")
             .host(translatedHost)
 
-        parsed.pathSegments().forEach { builder.addPathSegment(it) }
+        parsed.pathSegments.forEach { builder.addPathSegment(it) }
 
-        for (i in 0 until parsed.querySize()) {
+        for (i in 0 until parsed.querySize) {
             val name = parsed.queryParameterName(i)
             if (name == PARAM_SOURCE_LANG || name == PARAM_TARGET_LANG) continue
             builder.addQueryParameter(name, parsed.queryParameterValue(i))
@@ -97,14 +98,14 @@ object PageTranslator {
         builder.addQueryParameter(PARAM_SOURCE_LANG, SOURCE_LANG_AUTO)
         builder.addQueryParameter(PARAM_TARGET_LANG, mappedTarget)
 
-        parsed.encodedFragment()?.let { builder.encodedFragment(it) }
+        parsed.encodedFragment?.let { builder.encodedFragment(it) }
 
         return builder.build().toString()
     }
 
     fun isTranslateGoogUrl(url: String?): Boolean {
         if (url.isNullOrBlank()) return false
-        val host = HttpUrl.parse(url)?.host() ?: return false
+        val host = url.toHttpUrlOrNull()?.host ?: return false
         return host == TRANSLATE_GOOG_SUFFIX || host.endsWith(".$TRANSLATE_GOOG_SUFFIX")
     }
 

@@ -58,7 +58,7 @@ abstract class BaseSuggestionsModel internal constructor(
                     return@fromCallable emptyList<SearchSuggestion>()
                 }
                 return@fromCallable client.downloadSuggestionsForQuery(query, language)
-                    ?.body()
+                    ?.body
                     ?.safeUse(::parseResults)
                     ?.take(MAX_RESULTS) ?: emptyList()
             }

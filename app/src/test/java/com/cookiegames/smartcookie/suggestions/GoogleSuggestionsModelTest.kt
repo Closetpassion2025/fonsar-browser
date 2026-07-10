@@ -13,6 +13,7 @@ import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock
 import io.reactivex.Single
 import okhttp3.HttpUrl
+import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import okhttp3.OkHttpClient
 import org.junit.Test
 import java.util.*
@@ -45,7 +46,7 @@ class GoogleSuggestionsModelTest {
         (0..100).forEach {
             val result = "https://suggestqueries.google.com/complete/search?output=toolbar&q=$it"
 
-            assert(suggestionsModel.createQueryUrl(it.toString(), it.toString()).equals(HttpUrl.parse(result)))
+            assert(suggestionsModel.createQueryUrl(it.toString(), it.toString()) == result.toHttpUrlOrNull())
         }
     }
 }
