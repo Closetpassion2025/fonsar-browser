@@ -2032,6 +2032,19 @@ abstract class BrowserActivity : ThemableBrowserActivity(), BrowserView, UIContr
         }
     }
 
+    override fun navigateWebBack() {
+        val currentTab = tabsManager.currentTab ?: return
+        if (currentTab.canGoBack()) {
+            currentTab.goBack()
+        } else {
+            presenter?.deleteTab(tabsManager.positionOf(currentTab), true)
+        }
+    }
+
+    override fun navigateWebForward() {
+        tabsManager.currentTab?.goForward()
+    }
+
     override fun onHomeButtonPressed() {
         tabsManager.currentTab?.loadHomePage()
         closeDrawers(null)

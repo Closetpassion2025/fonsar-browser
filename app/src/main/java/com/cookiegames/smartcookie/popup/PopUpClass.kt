@@ -112,10 +112,12 @@ class PopUpClass {
         val currentUrl = uiController!!.getTabModel().currentTab?.url
 
         popupView.findViewById<ImageButton>(R.id.back_option).setOnClickListener {
-            currentView?.goBack()
+            uiController?.navigateWebBack()
+            popupWindow.dismiss()
         }
         popupView.findViewById<ImageButton>(R.id.forward_option).setOnClickListener {
-            currentView?.goForward()
+            uiController?.navigateWebForward()
+            popupWindow.dismiss()
         }
         popupView.findViewById<ImageButton>(R.id.close_option).setOnClickListener {
             if(Build.VERSION.SDK_INT >= 21){

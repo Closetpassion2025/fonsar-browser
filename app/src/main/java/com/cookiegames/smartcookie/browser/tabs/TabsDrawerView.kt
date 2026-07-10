@@ -64,6 +64,10 @@ class TabsDrawerView @JvmOverloads constructor(
         context.inflater.inflate(R.layout.tab_drawer, this, true)
         actionBack = findViewById(R.id.action_back)
         actionForward = findViewById(R.id.action_forward)
+        actionBack.isClickable = true
+        actionBack.isFocusable = true
+        actionForward.isClickable = true
+        actionForward.isFocusable = true
 
         val animator = VerticalItemAnimator().apply {
             supportsChangeAnimations = false
@@ -106,10 +110,10 @@ class TabsDrawerView @JvmOverloads constructor(
             }
         }
         findViewById<View>(R.id.action_back).setOnClickListener {
-            uiController.onBackButtonPressed()
+            uiController.navigateWebBack()
         }
         findViewById<View>(R.id.action_forward).setOnClickListener {
-            uiController.onForwardButtonPressed()
+            uiController.navigateWebForward()
         }
         findViewById<View>(R.id.action_home).setOnClickListener {
             uiController.onHomeButtonPressed()
@@ -150,7 +154,8 @@ class TabsDrawerView @JvmOverloads constructor(
     }
 
     override fun setGoBackEnabled(isEnabled: Boolean) {
-        actionBack.isEnabled = isEnabled
+        actionBack.isEnabled = true
+        actionBack.alpha = if (isEnabled) 1f else 0.38f
     }
 
     override fun setGoForwardEnabled(isEnabled: Boolean) {

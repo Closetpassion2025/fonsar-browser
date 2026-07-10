@@ -173,6 +173,16 @@ interface UIController {
     fun tabChanged(tab: SmartCookieView)
 
     /**
+     * Navigate back in the current tab's WebView without closing drawers.
+     */
+    fun navigateWebBack()
+
+    /**
+     * Navigate forward in the current tab's WebView without closing drawers.
+     */
+    fun navigateWebForward()
+
+    /**
      * Notify the browser that the user pressed the back button.
      */
     fun onBackButtonPressed()
