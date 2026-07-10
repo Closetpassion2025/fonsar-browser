@@ -1,5 +1,6 @@
 package com.cookiegames.smartcookie.browser.activity
 
+import android.Manifest
 import android.app.Activity
 import android.app.NotificationManager
 import android.content.ClipboardManager
@@ -84,6 +85,8 @@ import com.cookiegames.smartcookie.icon.TabCountView
 import com.cookiegames.smartcookie.interpolator.BezierDecelerateInterpolator
 import com.cookiegames.smartcookie.log.Logger
 import com.cookiegames.smartcookie.notifications.IncognitoNotification
+import com.cookiegames.smartcookie.permissions.PermissionsManager
+import com.cookiegames.smartcookie.permissions.PermissionsResultAction
 import com.cookiegames.smartcookie.permissions.PermissionsManager
 import com.cookiegames.smartcookie.popup.PopUpClass
 import com.cookiegames.smartcookie.search.SearchEngineProvider
@@ -234,6 +237,7 @@ abstract class BrowserActivity : ThemableBrowserActivity(), BrowserView, UIContr
     var webPageBitmap: Bitmap? = null
     private val backgroundDrawable = ColorDrawable()
     private var incognitoNotification: IncognitoNotification? = null
+    private var pendingIncognitoTabCount: Int? = null
 
     private var presenter: BrowserPresenter? = null
     private var tabsView: TabsView? = null
@@ -251,6 +255,41 @@ abstract class BrowserActivity : ThemableBrowserActivity(), BrowserView, UIContr
      * Determines if the current browser instance is in incognito mode or not.
      */
     abstract fun isIncognito(): Boolean
+
+    private fun updateIncognitoNotification(tabCount: Int) {
+        if (!isIncognito()) {
+            return
+        }
+        if (tabCount == 0) {
+            pendingIncognitoTabCount = null
+            incognitoNotification?.hide()
+            return
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+            ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) !=
+            android.content.pm.PackageManager.PERMISSION_GRANTED
+        ) {
+            pendingIncognitoTabCount = tabCount
+            PermissionsManager.instance.requestPermissionsIfNecessaryForResult(
+                this,
+                arrayOf(Manifest.permission.POST_NOTIFICATIONS),
+                object : PermissionsResultAction() {
+                    override fun onGranted() {
+                        pendingIncognitoTabCount?.let { count ->
+                            incognitoNotification?.show(count)
+                        }
+                        pendingIncognitoTabCount = null
+                    }
+
+                    override fun onDenied(permission: String) {
+                        pendingIncognitoTabCount = null
+                    }
+                }
+            )
+            return
+        }
+        incognitoNotification?.show(tabCount)
+    }
 
     /**
      * Choose the behavior when the controller closes the view.
@@ -292,13 +331,7 @@ abstract class BrowserActivity : ThemableBrowserActivity(), BrowserView, UIContr
             incognitoNotification = IncognitoNotification(this, notificationManager)
         }
         tabsManager.addTabNumberChangedListener {
-            if (isIncognito()) {
-                if (it == 0) {
-                    incognitoNotification?.hide()
-                } else {
-                    incognitoNotification?.show(it)
-                }
-            }
+            updateIncognitoNotification(it)
         }
 
         presenter = BrowserPresenter(
