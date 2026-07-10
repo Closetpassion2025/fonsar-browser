@@ -198,9 +198,6 @@ class PrivacySettingsFragment : AbstractSettingsFragment() {
             pinCredentialStore.clearPin(PinCredentialStore.PinSlot.APP_LOCK)
         }
 
-        val prefs: SharedPreferences = activity.getSharedPreferences("com.cookiegames.smartcookie", Context.MODE_PRIVATE)
-        prefs.edit().putBoolean("noPassword", choice != PasswordChoice.CUSTOM).apply()
-
         if (choice == PasswordChoice.CUSTOM) {
             showPasswordTextPicker(activity, summaryUpdater)
         }

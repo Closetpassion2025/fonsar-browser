@@ -1,9 +1,7 @@
 package com.cookiegames.smartcookie.settings.fragment
 
 import android.app.Activity
-import android.content.Context.MODE_PRIVATE
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.EditText
@@ -63,11 +61,7 @@ class ParentalControlSettingsFragment : AbstractSettingsFragment() {
                 summary = userPreferences.passwordChoice.toSummary(),
                 onClick = ::showPasswordPicker
         )
-        val prefs: SharedPreferences? = activity?.getSharedPreferences("com.cookiegames.smartcookie", MODE_PRIVATE)
-
-        if (prefs?.getBoolean("noPassword", true)!!) {
-        }
-        else {
+        if (userPreferences.passwordChoice == PasswordChoice.CUSTOM) {
             passwordDialog()
         }
     }
@@ -196,22 +190,9 @@ class ParentalControlSettingsFragment : AbstractSettingsFragment() {
     private fun updatePasswordChoice(choice: PasswordChoice, activity: Activity, summaryUpdater: SummaryUpdater) {
         if (choice == PasswordChoice.CUSTOM) {
             showPasswordTextPicker(activity, summaryUpdater)
-
-            val prefs: SharedPreferences = activity.getSharedPreferences("com.cookiegames.smartcookie", MODE_PRIVATE)
-
-            val editor: SharedPreferences.Editor = prefs.edit()
-            editor.putBoolean("noPassword", false)
-            editor.apply()
         }
         else {
             pinCredentialStore.clearPin(PinCredentialStore.PinSlot.PARENTAL)
-
-            val prefs: SharedPreferences = activity.getSharedPreferences("com.cookiegames.smartcookie", MODE_PRIVATE)
-
-            val editor: SharedPreferences.Editor = prefs.edit()
-            editor.putBoolean("noPassword", true)
-            editor.apply()
-
             summaryUpdater.updateSummary(resources.getString(R.string.none))
         }
 

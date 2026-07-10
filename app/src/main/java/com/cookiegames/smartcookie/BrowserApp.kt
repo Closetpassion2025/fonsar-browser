@@ -16,6 +16,8 @@ import com.cookiegames.smartcookie.di.DatabaseScheduler
 import com.cookiegames.smartcookie.di.injector
 import com.cookiegames.smartcookie.log.Logger
 import com.cookiegames.smartcookie.preference.DeveloperPreferences
+import com.cookiegames.smartcookie.preference.UserPreferences
+import com.cookiegames.smartcookie.preference.migrateLegacyPackagePreferences
 import com.cookiegames.smartcookie.security.PinCredentialStore
 import com.cookiegames.smartcookie.utils.FileUtils
 import com.cookiegames.smartcookie.utils.MemoryLeakUtils
@@ -36,6 +38,7 @@ class BrowserApp : Application() {
     @Inject internal lateinit var logger: Logger
     @Inject internal lateinit var buildInfo: BuildInfo
     @Inject internal lateinit var pinCredentialStore: PinCredentialStore
+    @Inject internal lateinit var userPreferences: UserPreferences
 
     lateinit var applicationComponent: AppComponent
 
@@ -92,6 +95,7 @@ class BrowserApp : Application() {
                 .build()
         injector.inject(this)
         pinCredentialStore.migrateLegacyPinsIfNeeded()
+        migrateLegacyPackagePreferences(this, userPreferences, pinCredentialStore)
 
         Single.fromCallable(bookmarkModel::count)
                 .filter { it == 0L }
