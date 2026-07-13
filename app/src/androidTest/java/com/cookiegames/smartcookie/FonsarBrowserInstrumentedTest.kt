@@ -1,5 +1,6 @@
 package com.cookiegames.smartcookie
 
+import android.content.Intent
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.Espresso.pressBack
@@ -11,10 +12,12 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.hasSibling
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.appcompat.widget.Toolbar
 import android.view.View
 import org.hamcrest.Matcher
+import org.hamcrest.Matchers.allOf
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.cookiegames.smartcookie.browser.PasswordChoice
@@ -43,17 +46,21 @@ class FonsarBrowserInstrumentedTest {
 
     @Test
     fun appLaunches_andShowsSearchBar() {
-        ActivityScenario.launch(MainActivity::class.java).use {
-            onView(withId(R.id.search))
-                    .check(matches(isDisplayed()))
-        }
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        context.startActivity(
+            Intent(context, MainActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        )
+        onView(withId(R.id.search))
+                .check(matches(isDisplayed()))
     }
 
     @Test
     fun settings_backArrowReturnsToRootFromSubScreen() {
         ActivityScenario.launch(SettingsActivity::class.java).use {
-            onView(withText(R.string.settings_general))
-                    .perform(click())
+            onView(allOf(
+                    withText(R.string.settings_general),
+                    hasSibling(withText(R.string.settings_general_explain))
+            )).perform(click())
 
             onView(withText(R.string.translator))
                     .check(matches(isDisplayed()))
@@ -69,8 +76,10 @@ class FonsarBrowserInstrumentedTest {
     @Test
     fun settings_systemBackReturnsToRootFromSubScreen() {
         ActivityScenario.launch(SettingsActivity::class.java).use {
-            onView(withText(R.string.settings_general))
-                    .perform(click())
+            onView(allOf(
+                    withText(R.string.settings_general),
+                    hasSibling(withText(R.string.settings_general_explain))
+            )).perform(click())
 
             onView(withText(R.string.translator))
                     .check(matches(isDisplayed()))
