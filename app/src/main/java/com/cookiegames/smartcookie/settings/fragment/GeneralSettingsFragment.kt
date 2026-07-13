@@ -419,8 +419,8 @@ class GeneralSettingsFragment : AbstractSettingsFragment() {
         val stringArray = resources.getStringArray(R.array.block_javascript)
         return when (this) {
             JavaScriptChoice.NONE -> stringArray[0]
-            JavaScriptChoice.WHITELIST -> userPreferences.siteBlockNames
-            JavaScriptChoice.BLACKLIST -> userPreferences.siteBlockNames
+            JavaScriptChoice.WHITELIST -> userPreferences.javaScriptBlocked
+            JavaScriptChoice.BLACKLIST -> userPreferences.javaScriptBlocked
         }
     }
 
