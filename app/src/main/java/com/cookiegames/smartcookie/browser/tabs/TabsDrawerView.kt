@@ -159,7 +159,8 @@ class TabsDrawerView @JvmOverloads constructor(
     }
 
     override fun setGoForwardEnabled(isEnabled: Boolean) {
-        actionForward.isEnabled = isEnabled
+        actionForward.isEnabled = true
+        actionForward.alpha = if (isEnabled) 1f else 0.38f
     }
 
 }

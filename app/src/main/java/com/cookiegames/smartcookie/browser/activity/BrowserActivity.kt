@@ -2042,7 +2042,7 @@ abstract class BrowserActivity : ThemableBrowserActivity(), BrowserView, UIContr
     }
 
     override fun navigateWebForward() {
-        tabsManager.currentTab?.goForward()
+        tabsManager.currentTab?.takeIf { it.canGoForward() }?.goForward()
     }
 
     override fun onHomeButtonPressed() {
