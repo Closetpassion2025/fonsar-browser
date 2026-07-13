@@ -111,12 +111,6 @@ class PrivacySettingsFragment : AbstractSettingsFragment() {
         switchPreference(
             preference = SETTINGS_DONOTTRACK,
             isChecked = userPreferences.doNotTrackEnabled,
-            summary = (if(userPreferences.popupsEnabled) {
-                resources.getString(R.string.crash_warning)
-            }
-             else{
-                ""
-            }).toString(),
             onCheckChange = { userPreferences.doNotTrackEnabled = it }
         )
 
