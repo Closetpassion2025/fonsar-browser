@@ -54,20 +54,9 @@ class AdvancedSettingsFragment : AbstractSettingsFragment() {
         )
 
         switchPreference(
-            preference = SETTINGS_ENABLE_COOKIES,
-            isChecked = userPreferences.cookiesEnabled,
-            onCheckChange = { userPreferences.cookiesEnabled = it }
-        )
-        switchPreference(
                 preference = SETTINGS_BLOCK_INTENT,
                 isChecked = userPreferences.blockIntent,
                 onCheckChange = { userPreferences.blockIntent = it }
-        )
-
-        switchPreference(
-            preference = SETTINGS_COOKIES_INCOGNITO,
-            isChecked = userPreferences.incognitoCookiesEnabled,
-            onCheckChange = { userPreferences.incognitoCookiesEnabled = it }
         )
 
         switchPreference(
