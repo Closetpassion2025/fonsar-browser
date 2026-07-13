@@ -516,6 +516,7 @@
     <string name="app_lock_biometric">Biometric or device lock</string>
     <string name="app_lock_biometric_unavailable">No biometric or screen lock is set up on this device</string>
     <string name="app_lock_unlock">Unlock</string>
+    <string name="app_lock_reset">App lock was reset after a security key change. Set your PIN again in Settings.</string>
 
     <string name="show_ssl">Show SSL warning dialogs</string>
     <string name="warn">Only change this if you know what you\'re doing!</string>

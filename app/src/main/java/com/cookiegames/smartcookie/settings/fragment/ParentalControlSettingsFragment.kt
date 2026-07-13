@@ -61,7 +61,11 @@ class ParentalControlSettingsFragment : AbstractSettingsFragment() {
                 summary = userPreferences.passwordChoice.toSummary(),
                 onClick = ::showPasswordPicker
         )
-        if (userPreferences.passwordChoice == PasswordChoice.CUSTOM) {
+        if (userPreferences.passwordChoice == PasswordChoice.CUSTOM &&
+            !pinCredentialStore.hasPin(PinCredentialStore.PinSlot.PARENTAL)) {
+            userPreferences.passwordChoice = PasswordChoice.NONE
+            Toast.makeText(activity, R.string.app_lock_reset, Toast.LENGTH_LONG).show()
+        } else if (userPreferences.passwordChoice == PasswordChoice.CUSTOM) {
             passwordDialog()
         }
     }

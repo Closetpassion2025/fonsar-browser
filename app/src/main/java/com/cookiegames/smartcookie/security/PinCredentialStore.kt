@@ -6,7 +6,10 @@ import android.util.Base64
 import android.util.Log
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
+import com.cookiegames.smartcookie.browser.PasswordChoice
 import com.cookiegames.smartcookie.di.UserPrefs
+import com.cookiegames.smartcookie.preference.PASSWORD
+import com.cookiegames.smartcookie.preference.PASSWORD_LOCK
 import java.io.IOException
 import java.security.GeneralSecurityException
 import java.security.KeyStore
@@ -28,7 +31,8 @@ class PinCredentialStore @Inject constructor(
         PARENTAL
     }
 
-    private val securePreferences: SharedPreferences = createSecurePreferences(context.applicationContext)
+    private val securePreferences: SharedPreferences =
+        createSecurePreferences(context.applicationContext, legacyPreferences)
 
     /**
      * Idempotent migration for users upgrading from plaintext PIN storage.
@@ -102,26 +106,26 @@ class PinCredentialStore @Inject constructor(
         PinSlot.PARENTAL -> "parental_salt"
     }
 
+    private fun createSecurePreferences(context: Context, settings: SharedPreferences): SharedPreferences {
+        return try {
+            openSecurePreferences(context)
+        } catch (e: GeneralSecurityException) {
+            Log.w(TAG, "Encrypted prefs failed; clearing corrupt crypto state and retrying", e)
+            clearCorruptCryptoState(context, settings)
+            openSecurePreferences(context)
+        } catch (e: IOException) {
+            Log.w(TAG, "Encrypted prefs failed; clearing corrupt crypto state and retrying", e)
+            clearCorruptCryptoState(context, settings)
+            openSecurePreferences(context)
+        }
+    }
+
     companion object {
         private const val TAG = "PinCredentialStore"
         private const val SECURE_PREFS_NAME = "pin_credentials"
         private const val LEGACY_APP_LOCK_KEY = "usePasswordLock"
         private const val LEGACY_PARENTAL_KEY = "usePassword"
         private const val MASTER_KEY_ALIAS = "_androidx_security_master_key_"
-
-        private fun createSecurePreferences(context: Context): SharedPreferences {
-            return try {
-                openSecurePreferences(context)
-            } catch (e: GeneralSecurityException) {
-                Log.w(TAG, "Encrypted prefs failed; clearing corrupt crypto state and retrying", e)
-                clearCorruptCryptoState(context)
-                openSecurePreferences(context)
-            } catch (e: IOException) {
-                Log.w(TAG, "Encrypted prefs failed; clearing corrupt crypto state and retrying", e)
-                clearCorruptCryptoState(context)
-                openSecurePreferences(context)
-            }
-        }
 
         private fun openSecurePreferences(context: Context): SharedPreferences {
             val masterKey = MasterKey.Builder(context)
@@ -138,14 +142,20 @@ class PinCredentialStore @Inject constructor(
 
         /**
          * Recovery for unusable Android Keystore master keys (Tink #535).
-         * Clears encrypted prefs and the Keystore alias so a fresh keyset can be created.
-         * Stored PIN hashes are lost; users must set PINs again.
+         * Clears encrypted prefs and the Keystore alias so a fresh keyset can be
+         * created, and resets the app-lock / parental flags so the user is not
+         * locked out by an orphaned flag. Stored PIN hashes are lost; users must
+         * set PINs again.
          */
-        internal fun clearCorruptCryptoState(context: Context) {
+        internal fun clearCorruptCryptoState(context: Context, settings: SharedPreferences) {
             // Log.println is not covered by the -assumenosideeffects Log rule, so this
             // recovery event stays visible in release builds for field diagnosis.
             Log.println(Log.WARN, TAG, "Recovering from corrupt encrypted PIN storage: clearing keyset and master key; stored PINs are lost")
             context.deleteSharedPreferences(SECURE_PREFS_NAME)
+            settings.edit()
+                .putInt(PASSWORD_LOCK, PasswordChoice.NONE.value)
+                .putInt(PASSWORD, PasswordChoice.NONE.value)
+                .apply()
             try {
                 val keyStore = KeyStore.getInstance("AndroidKeyStore")
                 keyStore.load(null)

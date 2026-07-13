@@ -577,10 +577,31 @@ abstract class BrowserActivity : ThemableBrowserActivity(), BrowserView, UIContr
 
         }
 
+        reconcileAppLockState()
+
         when (userPreferences.passwordChoiceLock) {
             PasswordChoice.CUSTOM -> showPasswordLock()
             PasswordChoice.BIOMETRIC -> showBiometricLock()
             else -> Unit
+        }
+    }
+
+    /**
+     * Guards against a lockout when the encrypted PIN keyset was lost (Tink #535
+     * recovery, or the Android SharedPreferences fallback silently dropping a
+     * corrupt file) while the app-lock flag survived in plain settings.
+     * Only CUSTOM stores a hash; BIOMETRIC has none and self-heals in
+     * [showBiometricLock], so it is intentionally excluded here.
+     */
+    private fun reconcileAppLockState() {
+        if (userPreferences.passwordChoiceLock == PasswordChoice.CUSTOM &&
+            !pinCredentialStore.hasPin(PinCredentialStore.PinSlot.APP_LOCK)) {
+            userPreferences.passwordChoiceLock = PasswordChoice.NONE
+            Snackbar.make(
+                findViewById(android.R.id.content),
+                R.string.app_lock_reset,
+                Snackbar.LENGTH_LONG
+            ).show()
         }
     }
 
