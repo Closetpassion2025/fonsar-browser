@@ -115,6 +115,12 @@ class PrivacySettingsFragment : AbstractSettingsFragment() {
         )
 
         switchPreference(
+            preference = SETTINGS_BLOCK_MALWARE,
+            isChecked = userPreferences.blockMalwareEnabled,
+            onCheckChange = { userPreferences.blockMalwareEnabled = it }
+        )
+
+        switchPreference(
             preference = SETTINGS_WEBRTC,
             isChecked = userPreferences.webRtcEnabled && DeviceCapabilities.WEB_RTC.isSupported,
             isEnabled = DeviceCapabilities.WEB_RTC.isSupported,
@@ -352,6 +358,7 @@ class PrivacySettingsFragment : AbstractSettingsFragment() {
         private const val SETTINGS_CLEARWEBSTORAGE = "clear_webstorage"
         private const val SETTINGS_WEBSTORAGEEXIT = "clear_webstorage_exit"
         private const val SETTINGS_DONOTTRACK = "do_not_track"
+        private const val SETTINGS_BLOCK_MALWARE = "block_malicious_sites"
         private const val SETTINGS_WEBRTC = "webrtc_support"
         private const val SETTINGS_IDENTIFYINGHEADERS = "remove_identifying_headers"
         private const val SETTINGS_FORCEHTTPS = "force_https"
