@@ -77,13 +77,17 @@ class HistoryActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         list = findViewById(R.id.history)
         val linearLayoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
 
+        historyList = emptyList()
+
         historyRepository
                 .lastHundredVisitedHistoryEntries()
+                .observeOn(io.reactivex.android.schedulers.AndroidSchedulers.mainThread())
                 .subscribe { list ->
                     historyList = list
+                    arrayAdapter.updateData(list)
                 }
 
-        arrayAdapter = CustomAdapter(historyList)
+        arrayAdapter = CustomAdapter(emptyList())
         list.layoutManager = linearLayoutManager
         list.adapter = arrayAdapter
 
@@ -97,7 +101,11 @@ class HistoryActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
                     }
 
                     override fun onLongItemClick(view: View?, position: Int) {
-                        dialogBuilder!!.showLongPressedHistoryLinkDialog(this@HistoryActivity, historyList[position].url)
+                        val adapter = list.adapter as CustomAdapter
+                        dialogBuilder!!.showLongPressedHistoryLinkDialog(
+                            this@HistoryActivity,
+                            adapter.getItem(position).url
+                        )
                     }
                 })
         )
@@ -113,19 +121,25 @@ class HistoryActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     fun dataChanged() {
         historyRepository
                 .lastHundredVisitedHistoryEntries()
+                .observeOn(io.reactivex.android.schedulers.AndroidSchedulers.mainThread())
                 .subscribe { list ->
                     historyList = list
+                    arrayAdapter.updateData(list)
                 }
-        arrayAdapter = CustomAdapter(historyList)
-        list?.adapter = arrayAdapter
-        arrayAdapter.notifyDataSetChanged()
     }
 
     class CustomAdapter(private var dataSet: List<HistoryEntry>) :
             RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
-        lateinit var filtered: MutableList<HistoryEntry>
-        lateinit var oldList: MutableList<HistoryEntry>
+        private var filtered: MutableList<HistoryEntry> = dataSet.toMutableList()
+        private var oldList: MutableList<HistoryEntry> = dataSet.toMutableList()
+
+        fun updateData(newData: List<HistoryEntry>) {
+            dataSet = newData
+            oldList = newData.toMutableList()
+            filtered = oldList
+            notifyDataSetChanged()
+        }
 
         fun getFilter(): Filter? {
             return object : Filter() {
@@ -182,7 +196,6 @@ class HistoryActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
             // Create a new view, which defines the UI of the list item
             val view = LayoutInflater.from(viewGroup.context)
                     .inflate(R.layout.history_row, viewGroup, false)
-            oldList = dataSet.toMutableList()
             return ViewHolder(view)
         }
 
