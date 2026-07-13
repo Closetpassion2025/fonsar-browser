@@ -142,6 +142,9 @@ class PinCredentialStore @Inject constructor(
          * Stored PIN hashes are lost; users must set PINs again.
          */
         internal fun clearCorruptCryptoState(context: Context) {
+            // Log.println is not covered by the -assumenosideeffects Log rule, so this
+            // recovery event stays visible in release builds for field diagnosis.
+            Log.println(Log.WARN, TAG, "Recovering from corrupt encrypted PIN storage: clearing keyset and master key; stored PINs are lost")
             context.deleteSharedPreferences(SECURE_PREFS_NAME)
             try {
                 val keyStore = KeyStore.getInstance("AndroidKeyStore")
