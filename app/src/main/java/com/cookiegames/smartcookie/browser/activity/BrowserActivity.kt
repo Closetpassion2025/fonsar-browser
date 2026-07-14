@@ -1655,7 +1655,8 @@ abstract class BrowserActivity : ThemableBrowserActivity(), BrowserView, UIContr
         if (currentUiColor == Color.BLACK) {
             currentUiColor = defaultColor
         }
-        Palette.from(favicon ?: webPageBitmap!!).generate { palette ->
+        val bitmap = favicon ?: webPageBitmap ?: return
+        Palette.from(bitmap).generate { palette ->
             // OR with opaque black to remove transparency glitches
             val color = Color.BLACK or (palette?.getVibrantColor(defaultColor) ?: defaultColor)
 
@@ -2313,7 +2314,7 @@ abstract class BrowserActivity : ThemableBrowserActivity(), BrowserView, UIContr
                 findResult = null
                 binding.searchBar.visibility = GONE
                 val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
+                imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
             }
             R.id.button_search -> {
                 showFindInPageControls(findViewById<EditText>(R.id.search_query).text.toString())
