@@ -766,9 +766,9 @@ abstract class BrowserActivity : ThemableBrowserActivity(), BrowserView, UIContr
 
         override fun onFocusChange(v: View, hasFocus: Boolean) {
             val currentView = tabsManager.currentTab
-            if (currentView?.url!!.contains("data:text/html;charset=utf-8")) {
-
-            } else if (!hasFocus) {
+            val url = currentView?.url
+            if (url?.contains("data:text/html;charset=utf-8") == true) {
+            } else if (!hasFocus && currentView != null) {
                 setIsLoading(currentView.progress < 100)
                 updateUrl(currentView.url, false)
             } else if (hasFocus) {
@@ -1197,7 +1197,7 @@ abstract class BrowserActivity : ThemableBrowserActivity(), BrowserView, UIContr
     override fun updateSslState(sslState: SslState) {
         val currentTab = tabsManager.currentTab
         val url = currentTab?.url
-        if(url!!.contains("http://") || url.contains("https://")){
+        if (url != null && (url.contains("http://") || url.contains("https://"))) {
             toolbarBinding.searchSslStatus.setImageDrawable(createSslDrawableForState(sslState))
         }
         else{
