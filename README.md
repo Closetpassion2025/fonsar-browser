@@ -1,10 +1,9 @@
-<p align="center"><img src="https://user-images.githubusercontent.com/44752343/112613474-0c339b00-8e18-11eb-8106-202c0c132715.png" width="150" alt="Fonsar Browser"></p>
+<p align="center"><img src="docs/assets/fonsar-logo.png" width="150" alt="Fonsar Browser"></p>
 <h2 align="center"><b>Fonsar Browser</b></h2>
 <h4 align="center">A secure, free and open source WebView-based web browser for Android.</h4>
 
 <p align="center">
 <a href="https://github.com/Closetpassion2025/fonsar-browser/blob/master/NOTICE" alt="MPL-2.0 License"><img src="https://img.shields.io/badge/License-MPL--2.0-brightgreen.svg"></a>
-<a href="https://github.com/Closetpassion2025/fonsar-browser/releases" alt="GitHub Release"><img src="https://img.shields.io/github/v/release/Closetpassion2025/fonsar-browser.svg"></a>
 </p>
 <hr>
 
