@@ -26,5 +26,8 @@ jobs:
       - name: Build debug APK
         run: ./gradlew assembleScMainDebug
 
+      - name: Build release APK (unsigned)
+        run: ./gradlew assembleScMainRelease
+
       - name: Run unit tests
         run: ./gradlew testScMainDebugUnitTest
