@@ -142,12 +142,7 @@ class PrivacySettingsFragment : AbstractSettingsFragment() {
         switchPreference(
             preference = SETTINGS_IDENTIFYINGHEADERS,
             isChecked = userPreferences.removeIdentifyingHeadersEnabled,
-            summary = (if(userPreferences.popupsEnabled) {
-                resources.getString(R.string.crash_warning)
-            }
-            else{
-                "${SmartCookieView.HEADER_REQUESTED_WITH}, ${SmartCookieView.HEADER_WAP_PROFILE}"
-            }).toString(),
+            summary = "${SmartCookieView.HEADER_REQUESTED_WITH}, ${SmartCookieView.HEADER_WAP_PROFILE}",
             onCheckChange = { userPreferences.removeIdentifyingHeadersEnabled = it }
         )
 
