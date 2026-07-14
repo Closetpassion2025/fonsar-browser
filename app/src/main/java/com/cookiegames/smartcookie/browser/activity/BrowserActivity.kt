@@ -638,6 +638,12 @@ abstract class BrowserActivity : ThemableBrowserActivity(), BrowserView, UIContr
                     if (failedAttempts >= 3) {
                         finishAffinity()
                     } else {
+                        val remaining = 3 - failedAttempts
+                        customLayoutBinding.textField.error = resources.getQuantityString(
+                            R.plurals.pin_attempts_remaining,
+                            remaining,
+                            remaining
+                        )
                         customLayoutBinding.textFieldText.text?.clear()
                     }
                 }

@@ -517,6 +517,11 @@
     <string name="app_lock_biometric_unavailable">No biometric or screen lock is set up on this device</string>
     <string name="app_lock_unlock">Unlock</string>
     <string name="app_lock_reset">App lock was reset after a security key change. Set your PIN again in Settings.</string>
+    <!-- Locales: pin_attempts_remaining translated in a later batch -->
+    <plurals name="pin_attempts_remaining">
+        <item quantity="one">1 attempt remaining</item>
+        <item quantity="other">%d attempts remaining</item>
+    </plurals>
 
     <string name="show_ssl">Show SSL warning dialogs</string>
     <string name="warn">Only change this if you know what you\'re doing!</string>
