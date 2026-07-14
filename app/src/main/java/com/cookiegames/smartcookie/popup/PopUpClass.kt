@@ -144,8 +144,11 @@ class PopUpClass {
         }
 
         popupView.findViewById<ImageButton>(R.id.bookmark_option).setOnClickListener {
-            val bookmark = Bookmark.Entry(currentUrl!!, currentView!!.title, 0, Bookmark.Folder.Root)
+            val tab = currentView ?: return@setOnClickListener
+            val url = currentUrl ?: return@setOnClickListener
+            val bookmark = Bookmark.Entry(url, tab.title, 0, Bookmark.Folder.Root)
             activity.bookmarksDialogBuilder.showAddBookmarkDialog(activity, uiController!!, bookmark)
+            popupWindow.dismiss()
         }
 
         val container =  popupView.findViewById<ConstraintLayout>(R.id.transparent_container)
