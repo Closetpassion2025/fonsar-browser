@@ -341,7 +341,7 @@ class ReadingActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                 builderSingle.setTitle(resources.getString(R.string.action_open) + ":")
                 val arrayAdapter = ArrayAdapter<String>(this@ReadingActivity, android.R.layout.select_dialog_singlechoice)
 
-                val arr: Array<String> = filesDir.list()
+                val arr = filesDir.list() ?: emptyArray()
                 val l = ArrayList<String>()
                 for (i in arr) {
                     if (i.endsWith(".txt")) {
@@ -358,9 +358,11 @@ class ReadingActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             R.id.tts -> {
                 if (reading) {
                     tts!!.stop()
-                    reading = !reading
+                    reading = false
+                    invalidateOptionsMenu()
+                    return true
                 }
-                if(mBody!!.selectionEnd < 1){
+                if (mBody!!.selectionEnd < 1) {
                     Toast.makeText(this, resources.getString(R.string.select_translate_text), Toast.LENGTH_LONG).show()
                     return false
                 }
@@ -369,10 +371,10 @@ class ReadingActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                     Toast.makeText(this, resources.getString(R.string.select_tts_text), Toast.LENGTH_LONG).show()
                     return false
                 }
-                reading = !reading
-                val text: String = source
-                if (reading) tts!!.speak(text, TextToSpeech.QUEUE_FLUSH, null)
+                reading = true
+                tts!!.speak(source, TextToSpeech.QUEUE_FLUSH, null)
                 invalidateOptionsMenu()
+                return true
             }
             else -> finish()
         }
@@ -384,7 +386,7 @@ class ReadingActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         builderSingle.setTitle(resources.getString(R.string.action_delete) + ":")
         val arrayAdapter = ArrayAdapter<String>(this@ReadingActivity, android.R.layout.select_dialog_singlechoice)
 
-        val arr: Array<String> = filesDir.list()
+        val arr = filesDir.list() ?: emptyArray()
         val l = ArrayList<String>()
         for (i in arr) {
             if (i.endsWith(".txt")) {
