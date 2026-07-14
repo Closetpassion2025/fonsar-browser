@@ -1661,7 +1661,11 @@ abstract class BrowserActivity : ThemableBrowserActivity(), BrowserView, UIContr
         if (currentUiColor == Color.BLACK) {
             currentUiColor = defaultColor
         }
-        val bitmap = favicon ?: webPageBitmap ?: return
+        val bitmap = favicon ?: webPageBitmap
+        if (bitmap == null) {
+            Log.w(TAG, "changeToolbarBackground: skipping palette extraction; favicon and webPageBitmap are null")
+            return
+        }
         Palette.from(bitmap).generate { palette ->
             // OR with opaque black to remove transparency glitches
             val color = Color.BLACK or (palette?.getVibrantColor(defaultColor) ?: defaultColor)
