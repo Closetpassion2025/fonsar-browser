@@ -2864,17 +2864,6 @@
 
     <issue
         id="UnusedResources"
-        message="The resource `R.layout.activity_download` appears to be unused"
-        errorLine1="&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
-        errorLine2="^">
-        <location
-            file="src/main/res/layout/activity_download.xml"
-            line="2"
-            column="1"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
         message="The resource `R.layout.activity_main_btm` appears to be unused"
         errorLine1="&lt;RelativeLayout android:id=&quot;@+id/relative_layout&quot;"
         errorLine2="^">
@@ -5060,17 +5049,6 @@
         errorLine2="^">
         <location
             file="src/main/res/drawable/toolbar_elevate.xml"
-            line="2"
-            column="1"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.layout.toolbar_settings` appears to be unused"
-        errorLine1="&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
-        errorLine2="^">
-        <location
-            file="src/main/res/layout/toolbar_settings.xml"
             line="2"
             column="1"/>
     </issue>

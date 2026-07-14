@@ -607,6 +607,7 @@ abstract class BrowserActivity : ThemableBrowserActivity(), BrowserView, UIContr
 
     private fun showPasswordLock() {
         val customLayoutBinding = DialogAppLockBinding.inflate(layoutInflater)
+        var failedAttempts = 0
 
         val dialog = MaterialAlertDialogBuilder(this)
             .setView(customLayoutBinding.root)
@@ -633,7 +634,12 @@ abstract class BrowserActivity : ThemableBrowserActivity(), BrowserView, UIContr
                     )) {
                     dialog.dismiss()
                 } else {
-                    finishAffinity()
+                    failedAttempts++
+                    if (failedAttempts >= 3) {
+                        finishAffinity()
+                    } else {
+                        customLayoutBinding.textFieldText.text?.clear()
+                    }
                 }
             }
         }
